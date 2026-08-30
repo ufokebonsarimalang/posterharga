@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Generator Harga UFO Electronics Multi-Template</title>
+<title>Generator Price Tag UFO Electronics</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#eef3fb;color:#102a5c}
@@ -13,16 +13,16 @@ h1{margin:0 0 6px;font-size:28px}
 .panel{background:white;border-radius:18px;padding:18px;box-shadow:0 8px 30px #0001;margin-bottom:20px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
 label{font-weight:700;font-size:14px;display:block;margin-bottom:7px}
-input, select{width:100%;padding:11px 14px;border:1px solid #ccd6e8;border-radius:10px;font-size:16px;outline:none;background:#fff;color:#102a5c}
-input:focus, select:focus{border-color:#1558c0;box-shadow:0 0 0 3px #1558c015}
+input{width:100%;padding:11px 14px;border:1px solid #ccd6e8;border-radius:10px;font-size:16px;outline:none;background:#fff;color:#102a5c;font-family:Arial,sans-serif}
+input:focus{border-color:#1558c0;box-shadow:0 0 0 3px #1558c015}
 .pos-box{background:#f4f7fc;padding:12px;border-radius:12px;margin-top:10px;border:1px solid #d8e2f3}
-.pos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.pos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:8px}
 .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
 button{border:0;border-radius:10px;padding:13px 18px;font-size:16px;font-weight:700;cursor:pointer}
 .primary{background:#0b4db8;color:#fff}
 .secondary{background:#e8eef8;color:#123c78}
 .preview{display:flex;justify-content:center}
-.canvas-wrap{width:min(100%,600px);background:#ddd;border-radius:14px;overflow:hidden;box-shadow:0 10px 35px #0002}
+.canvas-wrap{width:min(100%,500px);background:#ddd;border-radius:14px;overflow:hidden;box-shadow:0 10px 35px #0002}
 canvas{display:block;width:100%;height:auto}
 @media(max-width:750px){.grid,.pos-grid{grid-template-columns:1fr}.wrap{padding:12px}h1{font-size:23px}}
 </style>
@@ -30,60 +30,62 @@ canvas{display:block;width:100%;height:auto}
 <body>
 <div class="wrap">
   <div class="panel">
-    <h1>Generator Harga UFO (Multi Template)</h1>
-    <p class="sub">Pilih jenis promo/template, lalu atur angka dan posisinya agar pas di kotak template.</p>
+    <h1>Generator Price Tag UFO</h1>
+    <p class="sub">Masukkan Nama Brand, Tipe Barang, dan Harga. Atur koordinat & font jika diperlukan.</p>
 
-    <!-- PILIHAN TEMPLATE PROMO -->
-    <div style="margin-bottom:14px;">
-      <label style="color:#0b4db8;font-size:16px;">🎯 Pilih Jenis Promo / Template:</label>
-      <select id="templateSelect">
-        <option value="clearance">Clearance Sale</option>
-        <option value="promo_reguler">Promo Reguler</option>
-        <option value="cashback">Promo Cashback</option>
-      </select>
-    </div>
-
+    <!-- INPUT BRAND, TIPE, & HARGA -->
     <div class="grid">
       <div>
-        <label>Nama Brand (Jika Tanpa Logo)</label>
-        <input id="brand" placeholder="Contoh: SHARP" autocomplete="off">
+        <label>Nama Brand</label>
+        <input id="brandInput" placeholder="Contoh: SHARP" autocomplete="off">
       </div>
       <div>
-        <label>Harga Normal</label>
-        <input id="normal" inputmode="numeric" placeholder="Contoh: 13998000">
+        <label>Tipe / Model Barang</label>
+        <input id="tipeInput" placeholder="Contoh: 2T-C42DD1I / 42 INCH" autocomplete="off">
       </div>
       <div>
-        <label>Harga Spesial</label>
-        <input id="special" inputmode="numeric" placeholder="Contoh: 8699000">
+        <label>Harga (Nominal)</label>
+        <input id="hargaInput" inputmode="numeric" placeholder="Contoh: 3499000">
       </div>
     </div>
 
-    <!-- PANEL PENGATURAN POSISI MANUAL -->
+    <!-- PENGATURAN POSISI & UKURAN FONT -->
     <div class="pos-box">
-      <label style="color:#0b4db8;margin-bottom:10px;">⚙️ Pengaturan Koordinat Angka (Otomatis berubah per template):</label>
+      <label style="color:#0b4db8;margin-bottom:10px;">⚙️ Atur Posisi (X, Y) & Ukuran Font Brand/Tipe:</label>
       <div class="pos-grid">
         <div>
-          <label style="font-size:12px;">Posisi X (Normal)</label>
-          <input id="normX" type="number">
+          <label style="font-size:12px;">Posisi X (Brand/Tipe)</label>
+          <input id="textX" type="number" value="100">
         </div>
         <div>
-          <label style="font-size:12px;">Posisi Y (Normal)</label>
-          <input id="normY" type="number">
+          <label style="font-size:12px;">Posisi Y (Brand/Tipe)</label>
+          <input id="textY" type="number" value="430">
         </div>
         <div>
-          <label style="font-size:12px;">Posisi X (Spesial)</label>
-          <input id="specX" type="number">
+          <label style="font-size:12px;">Font Brand</label>
+          <input id="brandSize" type="number" value="55">
         </div>
         <div>
-          <label style="font-size:12px;">Posisi Y (Spesial)</label>
-          <input id="specY" type="number">
+          <label style="font-size:12px;">Font Tipe</label>
+          <input id="tipeSize" type="number" value="38">
         </div>
       </div>
-    </div>
 
-    <div class="logo-row" style="margin-top:14px;">
-      <label>Upload Logo Brand (Opsional)</label>
-      <input id="logo" type="file" accept="image/*">
+      <label style="color:#0b4db8;margin-bottom:10px;margin-top:10px;">⚙️ Atur Posisi (X, Y) & Ukuran Font Harga:</label>
+      <div class="pos-grid">
+        <div>
+          <label style="font-size:12px;">Posisi X Harga</label>
+          <input id="hargaX" type="number" value="230">
+        </div>
+        <div>
+          <label style="font-size:12px;">Posisi Y Harga</label>
+          <input id="hargaY" type="number" value="840">
+        </div>
+        <div>
+          <label style="font-size:12px;">Ukuran Font Harga</label>
+          <input id="hargaSize" type="number" value="85">
+        </div>
+      </div>
     </div>
 
     <div class="buttons">
@@ -95,7 +97,7 @@ canvas{display:block;width:100%;height:auto}
   <div class="panel">
     <div class="preview">
       <div class="canvas-wrap">
-        <canvas id="c" width="1000" height="1500"></canvas>
+        <canvas id="c"></canvas>
       </div>
     </div>
   </div>
@@ -105,96 +107,42 @@ canvas{display:block;width:100%;height:auto}
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 const templateImg = new Image();
-let uploadedLogo = null;
 
-// DATA SETTINGAN TIAP TEMPLATE (Ganti nama file & koordinat sesuai gambar Anda)
-const templatesData = {
-  clearance: {
-    src: 'template-clearance.jpg',
-    normX: 600, normY: 780,
-    specX: 600, specY: 1110
-  },
-  promo_reguler: {
-    src: 'template-promo.jpg',
-    normX: 500, normY: 650,
-    specX: 500, specY: 950
-  },
-  cashback: {
-    src: 'template-cashback.jpg',
-    normX: 550, normY: 720,
-    specX: 550, specY: 1020
-  }
-};
-
-const templateSelect = document.getElementById('templateSelect');
-const brandInput = document.getElementById('brand');
-const normalInput = document.getElementById('normal');
-const specialInput = document.getElementById('special');
-const logoInput = document.getElementById('logo');
-
-const normXInput = document.getElementById('normX');
-const normYInput = document.getElementById('normY');
-const specXInput = document.getElementById('specX');
-const specYInput = document.getElementById('specY');
-
-// Fungsi Ganti Template
-function switchTemplate(key) {
-  const data = templatesData[key];
-  normXInput.value = data.normX;
-  normYInput.value = data.normY;
-  specXInput.value = data.specX;
-  specYInput.value = data.specY;
-  
-  // Memuat gambar template yang dipilih
-  templateImg.src = data.src;
-}
-
-// Event saat dropdown template diubah
-templateSelect.addEventListener('change', (e) => {
-  switchTemplate(e.target.value);
-});
-
-// Event saat gambar template selesai dimuat
+// Memuat template gambar UFO
+templateImg.src = 'template-ufo.jpg';
 templateImg.onload = () => {
   drawCanvas();
 };
 
-// Event input diketik atau koordinat diganti
-[brandInput, normalInput, specialInput, normXInput, normYInput, specXInput, specYInput].forEach(input => {
-  input.addEventListener('input', drawCanvas);
-});
+const brandInput = document.getElementById('brandInput');
+const tipeInput = document.getElementById('tipeInput');
+const hargaInput = document.getElementById('hargaInput');
 
-logoInput.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if(file) {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        uploadedLogo = img;
-        drawCanvas();
-      };
-      img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
-  } else {
-    uploadedLogo = null;
-    drawCanvas();
-  }
+const textXInput = document.getElementById('textX');
+const textYInput = document.getElementById('textY');
+const brandSizeInput = document.getElementById('brandSize');
+const tipeSizeInput = document.getElementById('tipeSize');
+
+const hargaXInput = document.getElementById('hargaX');
+const hargaYInput = document.getElementById('hargaY');
+const hargaSizeInput = document.getElementById('hargaSize');
+
+// Trigger update canvas saat diketik atau nilai diubah
+[brandInput, tipeInput, hargaInput, textXInput, textYInput, brandSizeInput, tipeSizeInput, hargaXInput, hargaYInput, hargaSizeInput].forEach(input => {
+  input.addEventListener('input', drawCanvas);
 });
 
 document.getElementById('clear').addEventListener('click', () => {
   brandInput.value = '';
-  normalInput.value = '';
-  specialInput.value = '';
-  logoInput.value = '';
-  uploadedLogo = null;
+  tipeInput.value = '';
+  hargaInput.value = '';
   drawCanvas();
 });
 
 document.getElementById('download').addEventListener('click', () => {
   const link = document.createElement('a');
-  link.download = (brandInput.value || 'ufo-promo') + '.png';
+  const fileName = (brandInput.value + '-' + tipeInput.value).replace(/[^a-zA-Z0-9]/g, '_') || 'pricetag-ufo';
+  link.download = fileName + '.png';
   link.href = canvas.toDataURL('image/png');
   link.click();
 });
@@ -215,101 +163,58 @@ function drawCanvas() {
     ctx.drawImage(templateImg, 0, 0);
   }
 
-  const w = canvas.width;
-  const h = canvas.height;
+  const startX = Number(textXInput.value);
+  let currentY = Number(textYInput.value);
 
-  // 1. LOGO BRAND
-  if (uploadedLogo) {
-    const targetW = w * 0.30;
-    const targetH = h * 0.12;
-    const targetX = w * 0.65;
-    const targetY = h * 0.04;
+  // 1. RENDER BRAND (Baris 1 - Font Lebih Besar)
+  const brandText = brandInput.value.trim().toUpperCase();
+  if (brandText) {
+    const bSize = Number(brandSizeInput.value);
+    ctx.font = '900 ' + bSize + 'px Arial, sans-serif';
+    ctx.fillStyle = '#102a5c';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText(brandText, startX, currentY);
     
-    let hRatio = targetW / uploadedLogo.width;
-    let vRatio = targetH / uploadedLogo.height;
-    let ratio  = Math.min(hRatio, vRatio);
-    
-    let centerShiftX = (targetW - uploadedLogo.width * ratio) / 2;
-    let centerShiftY = (targetH - uploadedLogo.height * ratio) / 2;  
-    
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fillRect(targetX, targetY, targetW, targetH);
-
-    ctx.drawImage(uploadedLogo, 0, 0, uploadedLogo.width, uploadedLogo.height,
-                  targetX + centerShiftX, targetY + centerShiftY, uploadedLogo.width * ratio, uploadedLogo.height * ratio);
-  } else {
-    const brandText = brandInput.value.toUpperCase();
-    if(brandText) {
-      ctx.font = 'bold 45px Arial, sans-serif';
-      ctx.fillStyle = '#0b4db8';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(brandText, w * 0.80, h * 0.09);
-    }
+    // Geser Y ke bawah untuk tempat Tipe
+    currentY += bSize + 12; 
   }
 
-  const fontSize = 85;
-
-  const normX = Number(normXInput.value);
-  const normY = Number(normYInput.value);
-  const specX = Number(specXInput.value);
-  const specY = Number(specYInput.value);
-
-  // 2. HARGA NORMAL
-  const normalVal = formatRupiah(normalInput.value);
-  if(normalVal) {
-    ctx.font = '900 ' + fontSize + 'px Arial, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
-    ctx.shadowBlur = 6;
-    ctx.shadowOffsetX = 3;
-    ctx.shadowOffsetY = 3;
-
+  // 2. RENDER TIPE / MODEL (Baris 2 - Font Sedikit Lebih Kecil)
+  const tipeText = tipeInput.value.trim().toUpperCase();
+  if (tipeText) {
+    const tSize = Number(tipeSizeInput.value);
+    ctx.font = 'bold ' + tSize + 'px Arial, sans-serif';
     ctx.fillStyle = '#2c3e50';
-    ctx.fillText(normalVal, normX, normY);
-
-    ctx.shadowColor = 'transparent';
-    ctx.shadowBlur = 0;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-    
-    const textW = ctx.measureText(normalVal).width;
-    ctx.strokeStyle = '#d0021b';
-    ctx.lineWidth = 7;
-    ctx.beginPath();
-    ctx.moveTo(normX - (textW / 2) - 20, normY);
-    ctx.lineTo(normX + (textW / 2) + 20, normY);
-    ctx.stroke();
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillText(tipeText, startX, currentY);
   }
 
-  // 3. HARGA SPESIAL
-  const specialVal = formatRupiah(specialInput.value);
-  if(specialVal) {
-    ctx.font = '900 ' + (fontSize + 10) + 'px Arial, sans-serif';
-    ctx.textAlign = 'center';
+  // 3. RENDER HARGA PROMO
+  const hargaVal = formatRupiah(hargaInput.value);
+  if (hargaVal) {
+    const hX = Number(hargaXInput.value);
+    const hY = Number(hargaYInput.value);
+    const hSize = Number(hargaSizeInput.value);
+
+    ctx.font = '900 ' + hSize + 'px Arial, sans-serif';
+    ctx.fillStyle = '#0b4db8';
+    ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
 
-    let gradient = ctx.createLinearGradient(0, specY - 45, 0, specY + 45);
-    gradient.addColorStop(0, '#ff4d4d');
-    gradient.addColorStop(1, '#b30000');
+    // Shadow Bayangan Teks Harga
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+    ctx.shadowBlur = 4;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
 
-    ctx.shadowColor = 'rgba(179, 0, 0, 0.35)';
-    ctx.shadowBlur = 8;
-    ctx.shadowOffsetX = 3;
-    ctx.shadowOffsetY = 4;
-
-    ctx.fillStyle = gradient;
-    ctx.fillText(specialVal, specX, specY);
+    ctx.fillText(hargaVal, hX, hY);
 
     ctx.shadowColor = 'transparent';
     ctx.shadowBlur = 0;
   }
 }
-
-// Inisialisasi awal saat halaman dibuka
-switchTemplate('clearance');
 </script>
 </body>
 </html>
