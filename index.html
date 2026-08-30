@@ -92,7 +92,6 @@ function formatRupiahInput(el) {
 
 function generatePosterTemplate() {
     let brand = document.getElementById("genBrand").value;
-    // Hapus awalan "Rp " agar angka pas berdampingan dengan tulisan "RP" di template
     let hargaAwal = (document.getElementById("genHargaAwal").value || "0").replace("Rp ", "");
     let hargaDiskon = (document.getElementById("genHargaDiskon").value || "0").replace("Rp ", "");
 
@@ -109,10 +108,9 @@ function generatePosterTemplate() {
     templateImg.src = "template.png";
 
     templateImg.onload = function() {
-        // Gambar template latar belakang penuh
         ctx.drawImage(templateImg, 0, 0, canvas.width, canvas.height);
 
-        // 2. Muat Logo Brand Baru di Pojok Kanan Atas
+        // 2. Muat Logo Brand di Kanan Atas
         let logoBrand = new Image();
         logoBrand.crossOrigin = "anonymous";
         logoBrand.src = `${brand}.png`;
@@ -120,42 +118,44 @@ function generatePosterTemplate() {
         logoBrand.onload = function() {
             let bWidth = 650;
             let bHeight = (logoBrand.height / logoBrand.width) * bWidth;
-            ctx.drawImage(logoBrand, canvas.width - bWidth - 120, 70, bWidth, bHeight);
+            // Posisi pas di pojok kanan atas template
+            ctx.drawImage(logoBrand, canvas.width - bWidth - 120, 80, bWidth, bHeight);
             
             cetakHargaMaster();
         };
 
         logoBrand.onerror = function() {
-            cetakHargaMaster(); // Tetap lanjut jika logo terlewat
+            alert("Gagal memuat logo brand: " + brand + ".png. Pastikan file logo tersebut ada di GitHub!");
+            cetakHargaMaster();
         };
     };
 
     templateImg.onerror = function() {
         tutupPopup();
-        alert("Gagal memuat 'template.png'. Pastikan file gambar master kosongan sudah dinamai 'template.png' dan di-upload di root GitHub.");
+        alert("Gagal memuat 'template.png'. Pastikan file master template sudah di-upload.");
     };
 
-    // 3. Cetak Harga dengan Koordinat Presisi di Kotak Putih Template
+    // 3. Cetak Harga Sesuai Posisi Kotak Putih Template Master
     function cetakHargaMaster() {
-        // -- Cetak Harga Normal di Kotak Putih Tengah --
+        // -- Cetak Harga Normal (Kotak Putih Tengah) --
         ctx.fillStyle = "#0f172a";
-        ctx.font = "800 110px 'Outfit', sans-serif";
+        ctx.font = "800 115px 'Outfit', sans-serif";
         ctx.textAlign = "left";
-        ctx.fillText(hargaAwal, 680, 1585); // Koordinat Y diturunkan ke tengah kotak putih tengah
+        ctx.fillText(hargaAwal, 680, 1370); // Posisi Y pas di tengah kotak putih tengah
 
         // Garis coret merah menyilang Harga Normal
         ctx.strokeStyle = "#dc2626";
         ctx.lineWidth = 14;
         ctx.beginPath();
-        ctx.moveTo(650, 1550);
-        ctx.lineTo(2150, 1550);
+        ctx.moveTo(650, 1335);
+        ctx.lineTo(2150, 1335);
         ctx.stroke();
 
-        // -- Cetak Harga Spesial di Kotak Putih Bawah --
+        // -- Cetak Harga Spesial (Kotak Putih Bawah) --
         ctx.fillStyle = "#1e3a8a";
-        ctx.font = "900 180px 'Outfit', sans-serif";
+        ctx.font = "900 185px 'Outfit', sans-serif";
         ctx.textAlign = "left";
-        ctx.fillText(hargaDiskon, 650, 2750); // Koordinat Y diturunkan ke tengah kotak putih bawah
+        ctx.fillText(hargaDiskon, 680, 2305); // Posisi Y pas di tengah kotak putih bawah
 
         tutupPopup();
 
@@ -172,6 +172,7 @@ function generatePosterTemplate() {
         `;
     }
 }
+
 function showPopup(pesan) {
     let p = document.getElementById("popup");
     if(!p) {
@@ -183,11 +184,21 @@ function showPopup(pesan) {
     document.getElementById("popupText").innerText = pesan;
     document.getElementById("popup").style.display = "flex";
 }
+
 function tutupPopup() { 
     let p = document.getElementById("popup");
     if(p) p.style.display = "none"; 
 }
 </script>
+
+<!-- POPUP -->
+<div id="popup">
+  <div class="modern-popup-box">
+    <h3 style="margin:0 0 10px; color:#d4af37;">Informasi</h3>
+    <div id="popupText" style="margin-bottom: 15px; color: #cbd5e1;"></div>
+    <button onclick="tutupPopup()" style="border: none; padding: 10px 24px; border-radius: 9px; cursor: pointer; color: #111827; font-weight: 700; background: #d4af37;">OK</button>
+  </div>
+</div>
 
 </body>
 </html>
