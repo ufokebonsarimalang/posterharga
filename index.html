@@ -44,7 +44,7 @@
 <body>
 
     <h1 style="color: #ffffff; font-weight: 800; margin-bottom: 5px; text-align:center;">UFO KEBONSARI MALANG</h1>
-    <p style="color: #9ca3af; margin-top: 0; font-size: 14px;">Generator Ganti Harga & Logo Otomatis</p>
+    <p style="color: #9ca3af; margin-top: 0; font-size: 14px;">Generator Master Template Otomatis</p>
 
     <div class="container">
         <h2>🏷️ Input Data Promosi</h2>
@@ -95,28 +95,23 @@ function generatePosterTemplate() {
     let hargaAwal = document.getElementById("genHargaAwal").value || "Rp 0";
     let hargaDiskon = document.getElementById("genHargaDiskon").value || "Rp 0";
 
-    showPopup("Sedang memproses template, logo, dan harga...");
+    showPopup("Sedang merender poster HD...");
 
     let canvas = document.createElement("canvas");
     canvas.width = 2480;  // Standar Cetak A4 (300 DPI)
     canvas.height = 3508;
     let ctx = canvas.getContext("2d");
 
-    // 1. Muat Template Master Utama
+    // 1. Muat Master Template Kosongan
     let templateImg = new Image();
     templateImg.crossOrigin = "anonymous";
     templateImg.src = "template.png";
 
     templateImg.onload = function() {
-        // Gambar template master
+        // Gambar template latar belakang penuh
         ctx.drawImage(templateImg, 0, 0, canvas.width, canvas.height);
 
-        // 2. TIMPA LOGO BRAND LAMA DI KANAN ATAS DENGAN WARNA PUTIH
-        // (Koordinat ini menutup bersih area logo brand bawaan template sebelum diganti logo baru)
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(1500, 50, 850, 250);
-
-        // Muat Logo Brand Baru Sesuai Pilihan Dropdown
+        // 2. Muat Logo Brand Baru di Pojok Kanan Atas
         let logoBrand = new Image();
         logoBrand.crossOrigin = "anonymous";
         logoBrand.src = `${brand}.png`;
@@ -126,30 +121,28 @@ function generatePosterTemplate() {
             let bHeight = (logoBrand.height / logoBrand.width) * bWidth;
             ctx.drawImage(logoBrand, canvas.width - bWidth - 120, 70, bWidth, bHeight);
             
-            lanjutkanTutupHarga();
+            cetakHargaMaster();
         };
 
         logoBrand.onerror = function() {
-            lanjutkanTutupHarga(); // Tetap lanjut jika logo gagal dimuat
+            cetakHargaMaster(); // Tetap lanjut jika logo terlewat
         };
     };
 
     templateImg.onerror = function() {
         tutupPopup();
-        alert("Gagal memuat 'template.png'. Pastikan file template sudah ada di root GitHub.");
+        alert("Gagal memuat 'template.png'. Pastikan file gambar master kosongan sudah dinamai 'template.png' dan di-upload di root GitHub.");
     };
 
-function lanjutkanTutupHarga() {
-        // -- Tutup & Ganti Harga Normal (Kotak putih dinaikkan dan dilebarkan ke atas) --
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(660, 1100, 1480, 420);
-
+    // 3. Cetak Harga di Atas Kotak Kosong Template
+    function cetakHargaMaster() {
+        // -- Cetak Harga Normal di Kotak Tengah --
         ctx.fillStyle = "#0f172a";
         ctx.font = "800 115px 'Outfit', sans-serif";
         ctx.textAlign = "left";
         ctx.fillText(hargaAwal, 750, 1370);
 
-        // Garis coret merah baru
+        // Garis coret merah menyilang Harga Normal
         ctx.strokeStyle = "#dc2626";
         ctx.lineWidth = 14;
         ctx.beginPath();
@@ -157,29 +150,27 @@ function lanjutkanTutupHarga() {
         ctx.lineTo(2100, 1335);
         ctx.stroke();
 
-        // -- Tutup & Ganti Harga Spesial / Clearance (Kotak biru dinaikkan dan dilebarkan ke atas) --
+        // -- Cetak Harga Spesial di Kotak Bawah --
         ctx.fillStyle = "#1e3a8a";
-        ctx.fillRect(260, 1980, 1960, 420);
-
-        ctx.fillStyle = "#ffffff";
         ctx.font = "900 185px 'Outfit', sans-serif";
         ctx.textAlign = "left";
         ctx.fillText(hargaDiskon, 700, 2305);
 
         tutupPopup();
 
-        // 4. Siapkan Hasil Download HD
+        // 4. Siapkan Link Download Hasil HD
         let imageURL = canvas.toDataURL("image/png", 1.0);
         let previewContainer = document.getElementById("previewArea");
         previewContainer.innerHTML = `
             <div style="background:#1f2937; padding:20px; border-radius:14px; display:inline-block; border:1px solid #374151;">
-                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Sempurna! Harga Lama Tertutup Bersih.</p>
+                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Poster Master Berhasil Dibuat!</p>
                 <a href="${imageURL}" download="Poster_Clearance_${brand}_${Date.now()}.png" style="display:inline-block; padding:12px 24px; background:#10b981; color:#fff; font-weight:800; text-decoration:none; border-radius:8px;">
                     📥 Download Poster A4 (HD)
                 </a>
             </div>
         `;
     }
+}
 
 function showPopup(pesan) {
     let p = document.getElementById("popup");
