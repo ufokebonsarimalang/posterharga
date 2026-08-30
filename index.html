@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Generator Harga UFO Electronics</title>
+<title>Generator Harga UFO Electronics - Custom Posisi</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#eef3fb;color:#102a5c}
@@ -11,11 +11,12 @@ body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#eef3fb;color:#1
 h1{margin:0 0 6px;font-size:28px}
 .sub{margin:0 0 18px;color:#5b6b86}
 .panel{background:white;border-radius:18px;padding:18px;box-shadow:0 8px 30px #0001;margin-bottom:20px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
 label{font-weight:700;font-size:14px;display:block;margin-bottom:7px}
-input{width:100%;padding:13px 14px;border:1px solid #ccd6e8;border-radius:10px;font-size:17px;outline:none}
+input{width:100%;padding:11px 14px;border:1px solid #ccd6e8;border-radius:10px;font-size:16px;outline:none}
 input:focus{border-color:#1558c0;box-shadow:0 0 0 3px #1558c015}
-.logo-row{margin-top:14px}
+.pos-box{background:#f4f7fc;padding:12px;border-radius:12px;margin-top:10px;border:1px solid #d8e2f3}
+.pos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
 button{border:0;border-radius:10px;padding:13px 18px;font-size:16px;font-weight:700;cursor:pointer}
 .primary{background:#0b4db8;color:#fff}
@@ -24,14 +25,14 @@ button{border:0;border-radius:10px;padding:13px 18px;font-size:16px;font-weight:
 .canvas-wrap{width:min(100%,600px);background:#ddd;border-radius:14px;overflow:hidden;box-shadow:0 10px 35px #0002}
 canvas{display:block;width:100%;height:auto}
 .hint{font-size:13px;color:#69758a;margin-top:10px}
-@media(max-width:750px){.grid{grid-template-columns:1fr}.wrap{padding:12px}h1{font-size:23px}}
+@media(max-width:750px){.grid,.pos-grid{grid-template-columns:1fr}.wrap{padding:12px}h1{font-size:23px}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="panel">
-    <h1>Generator Harga UFO</h1>
-    <p class="sub">Posisi angka harga normal dan spesial sudah disesuaikan agar tepat berada di dalam kolomnya masing-masing.</p>
+    <h1>Generator Harga UFO (Atur Posisi Sendiri)</h1>
+    <p class="sub">Ubah angka posisi X (geser kiri-kanan) dan Y (geser atas-bawah) di bawah ini agar pas di kotak template Anda.</p>
 
     <div class="grid">
       <div>
@@ -48,10 +49,32 @@ canvas{display:block;width:100%;height:auto}
       </div>
     </div>
 
-    <div class="logo-row">
+    <!-- PANEL PENGATURAN POSISI MANUAL -->
+    <div class="pos-box">
+      <label style="color:#0b4db8;margin-bottom:10px;">⚙️ Pengaturan Koordinat Angka (Bisa diubah langsung):</label>
+      <div class="pos-grid">
+        <div>
+          <label style="font-size:12px;">Posisi X (Normal)</label>
+          <input id="normX" type="number" value="600">
+        </div>
+        <div>
+          <label style="font-size:12px;">Posisi Y (Normal)</label>
+          <input id="normY" type="number" value="780">
+        </div>
+        <div>
+          <label style="font-size:12px;">Posisi X (Spesial)</label>
+          <input id="specX" type="number" value="600">
+        </div>
+        <div>
+          <label style="font-size:12px;">Posisi Y (Spesial)</label>
+          <input id="specY" type="number" value="1110">
+        </div>
+      </div>
+    </div>
+
+    <div class="logo-row" style="margin-top:14px;">
       <label>Upload Logo Brand (Opsional)</label>
       <input id="logo" type="file" accept="image/*">
-      <div class="hint">Logo brand akan tampil di area kanan atas template.</div>
     </div>
 
     <div class="buttons">
@@ -75,7 +98,7 @@ const ctx = canvas.getContext('2d');
 const templateImg = new Image();
 let uploadedLogo = null;
 
-// Memuat file template.jpg secara berdampingan
+// Memuat file template.jpg dari folder yang sama di GitHub
 templateImg.src = 'template.jpg';
 templateImg.onload = () => {
   drawCanvas();
@@ -86,7 +109,13 @@ const normalInput = document.getElementById('normal');
 const specialInput = document.getElementById('special');
 const logoInput = document.getElementById('logo');
 
-[brandInput, normalInput, specialInput].forEach(input => {
+const normXInput = document.getElementById('normX');
+const normYInput = document.getElementById('normY');
+const specXInput = document.getElementById('specX');
+const specYInput = document.getElementById('specY');
+
+// Trigger ulang gambar saat ada input diketik atau koordinat diganti
+[brandInput, normalInput, specialInput, normXInput, normYInput, specXInput, specYInput].forEach(input => {
   input.addEventListener('input', drawCanvas);
 });
 
@@ -176,15 +205,18 @@ function drawCanvas() {
 
   const fontSize = 85;
 
-  // 2. RENDER HARGA NORMAL (Koreksi Posisi Vertikal & Horizontal)
+  // Ambil nilai koordinat dari kotak input angka di layar
+  const normX = Number(normXInput.value);
+  const normY = Number(normYInput.value);
+  const specX = Number(specXInput.value);
+  const specY = Number(specYInput.value);
+
+  // 2. RENDER HARGA NORMAL
   const normalVal = formatRupiah(normalInput.value);
   if(normalVal) {
     ctx.font = '900 ' + fontSize + 'px Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-
-    const normX = w * 0.60; // Posisi horizontal di tengah kolom atas
-    const normY = h * 0.525; // Posisi vertikal pas di tengah kotak normal
 
     ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
     ctx.shadowBlur = 6;
@@ -208,15 +240,12 @@ function drawCanvas() {
     ctx.stroke();
   }
 
-  // 3. RENDER HARGA SPESIAL (Koreksi Posisi Turun ke Kotak Bawah)
+  // 3. RENDER HARGA SPESIAL
   const specialVal = formatRupiah(specialInput.value);
   if(specialVal) {
     ctx.font = '900 ' + (fontSize + 10) + 'px Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-
-    const specX = w * 0.60; // Posisi horizontal di tengah kolom bawah
-    const specY = h * 0.745; // Posisi vertikal pas di dalam kotak putih harga spesial
 
     let gradient = ctx.createLinearGradient(0, specY - 45, 0, specY + 45);
     gradient.addColorStop(0, '#ff4d4d');
