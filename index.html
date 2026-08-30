@@ -92,71 +92,37 @@ function formatRupiahInput(el) {
 
 function generatePosterTemplate() {
     let brand = document.getElementById("genBrand").value;
-    let hargaAwal = document.getElementById("genHargaAwal" ).value || "Rp 0";
+    let hargaAwal = document.getElementById("genHargaAwal").value || "Rp 0";
     let hargaDiskon = document.getElementById("genHargaDiskon").value || "Rp 0";
 
-    showPopup("Sedang memuat template & merender poster HD...");
+    showPopup("Sedang merender ulang harga poster A4...");
 
     let canvas = document.createElement("canvas");
-    canvas.width = 2480;  // Ukuran Standar Cetak A4 (300 DPI)
+    canvas.width = 2480;  // Standar Cetak A4 (300 DPI)
     canvas.height = 3508;
     let ctx = canvas.getContext("2d");
 
-    // 1. Muat Gambar Template Master (background poster asli Anda)
+    // Muat Gambar Template Master Asli Anda
     let templateImg = new Image();
     templateImg.crossOrigin = "anonymous";
     templateImg.src = "template.png";
 
     templateImg.onload = function() {
-        // Gambar template memenuhi seluruh kanvas A4
+        // 1. Gambar Template Master Penuh di Kanvas
         ctx.drawImage(templateImg, 0, 0, canvas.width, canvas.height);
 
-        // 2. Muat Logo UFO di Kiri Atas
-        let logoUfo = new Image();
-        logoUfo.crossOrigin = "anonymous";
-        logoUfo.src = "logo.png";
-        
-        logoUfo.onload = function() {
-            ctx.drawImage(logoUfo, 90, 60, 380, 210);
-            muatLogoBrand();
-        };
-        logoUfo.onerror = function() { muatLogoBrand(); }; // Lanjut jika logo ufo gagal
-    };
+        // 2. TIMPA KOTAK HARGA NORMAL LAMA DENGAN WARNA PUTIH
+        // (Koordinat ini menutup area teks harga normal yang lama pada template)
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(700, 1220, 1420, 250);
 
-    templateImg.onerror = function() {
-        tutupPopup();
-        alert("Gagal memuat 'template.png'. Pastikan file template sudah di-upload di root GitHub.");
-    };
-
-    // 3. Muat Logo Brand di Kanan Atas
-    function muatLogoBrand() {
-        let logoBrand = new Image();
-        logoBrand.crossOrigin = "anonymous";
-        logoBrand.src = `${brand}.png`;
-
-        logoBrand.onload = function() {
-            let bWidth = 600;
-            let bHeight = (logoBrand.height / logoBrand.width) * bWidth;
-            // Posisi pas di pojok kanan atas area template
-            ctx.drawImage(logoBrand, canvas.width - bWidth - 120, 70, bWidth, bHeight);
-            
-            cetakTeksHarga();
-        };
-
-        logoBrand.onerror = function() {
-            cetakTeksHarga(); // Tetap lanjut cetak harga jika logo brand terlewat
-        };
-    }
-
-    // 4. Cetak Teks Harga Normal & Spesial secara Presisi di atas Template
-    function cetakTeksHarga() {
-        // -- HARGA NORMAL --
+        // Cetak Teks Harga Normal Baru
         ctx.fillStyle = "#0f172a";
         ctx.font = "800 115px 'Outfit', sans-serif";
         ctx.textAlign = "left";
         ctx.fillText(hargaAwal, 750, 1370);
 
-        // Garis coret merah menyilang Harga Normal
+        // Garis Coret Merah Menyilang Harga Normal Baru
         ctx.strokeStyle = "#dc2626";
         ctx.lineWidth = 14;
         ctx.beginPath();
@@ -164,7 +130,13 @@ function generatePosterTemplate() {
         ctx.lineTo(2100, 1335);
         ctx.stroke();
 
-        // -- HARGA SPESIAL / CLEARANCE --
+
+        // 3. TIMPA KOTAK HARGA SPESIAL LAMA DENGAN WARNA BIRU TUA
+        // (Koordinat ini menutup area teks harga spesial yang lama pada template)
+        ctx.fillStyle = "#1e3a8a";
+        ctx.fillRect(660, 2130, 1500, 250);
+
+        // Cetak Teks Harga Spesial / Clearance Baru
         ctx.fillStyle = "#ffffff";
         ctx.font = "900 185px 'Outfit', sans-serif";
         ctx.textAlign = "left";
@@ -172,20 +144,24 @@ function generatePosterTemplate() {
 
         tutupPopup();
 
-        // Sediakan Tombol Download Hasil Render HD
+        // 4. Siapkan Tombol Download Hasil HD
         let imageURL = canvas.toDataURL("image/png", 1.0);
         let previewContainer = document.getElementById("previewArea");
         previewContainer.innerHTML = `
             <div style="background:#1f2937; padding:20px; border-radius:14px; display:inline-block; border:1px solid #374151;">
-                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Poster Sesuai Master Berhasil Dibuat!</p>
+                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Poster Selesai Dirender Sempurna!</p>
                 <a href="${imageURL}" download="Poster_Clearance_${brand}_${Date.now()}.png" style="display:inline-block; padding:12px 24px; background:#10b981; color:#fff; font-weight:800; text-decoration:none; border-radius:8px;">
                     📥 Download Poster A4 (HD)
                 </a>
             </div>
         `;
-    }
-}
+    };
 
+    templateImg.onerror = function() {
+        tutupPopup();
+        alert("Gagal memuat 'template.png'. Pastikan file template sudah ada di root GitHub.");
+    };
+}
 function showPopup(pesan) {
     let p = document.getElementById("popup");
     if(!p) {
