@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Generator Price Tag UFO Electronics - Modern Style</title>
+<title>Generator Price Tag UFO Electronics</title>
 
-<!-- IMPORT FONT INTER DARI GOOGLE FONTS -->
+<!-- IMPORT FONT INTER -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@ input:focus, select:focus{border-color:#1558c0;box-shadow:0 0 0 3px #1558c015}
 .pos-box{background:#f4f7fc;padding:16px;border-radius:14px;margin-top:10px;border:1px solid #d8e2f3}
 .pos-section{margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed #c9d6ec}
 .pos-section:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
-.pos-title{font-weight:800;font-size:14px;color:#0b4db8;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.pos-title{font-weight:800;font-size:14px;color:#0b4db8;margin-bottom:8px}
 .pos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 
 .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
@@ -48,20 +48,20 @@ canvas{display:block;width:100%;height:auto}
 <div class="wrap">
   <div class="panel">
     <h1>Generator Price Tag UFO</h1>
-    <p class="sub">Pilih jenis template, lalu isi data brand, tipe, dan harganya.</p>
+    <p class="sub">Pilih jenis promo di bawah. Kolom input & pengaturan akan menyesuaikan jenis template secara otomatis.</p>
 
     <!-- PILIHAN TEMPLATE -->
     <div style="margin-bottom:16px;">
-      <label style="color:#0b4db8;font-size:16px;">🎯 Pilih Jenis Template / Promo:</label>
+      <label style="color:#0b4db8;font-size:16px;">🎯 Pilih Jenis Promo / Template:</label>
       <select id="templateSelect">
-        <option value="standar" selected>Template Standar / Price Tag UFO</option>
-        <option value="clearance">Template Clearance Sale</option>
+        <option value="standar" selected>Template Standar (Brand, Tipe & Harga)</option>
+        <option value="clearance">Template Clearance Sale (Harga Coret & Harga Spesial)</option>
         <option value="cashback">Template Promo Cashback</option>
       </select>
     </div>
 
-    <!-- INPUT DATA -->
-    <div class="grid">
+    <!-- 1. FORM INPUT KELOMPOK PROMO STANDAR & CASHBACK -->
+    <div id="formStandar" class="grid">
       <div>
         <label>Nama Brand</label>
         <input id="brandInput" placeholder="Contoh: COSMOS" autocomplete="off">
@@ -71,91 +71,90 @@ canvas{display:block;width:100%;height:auto}
         <input id="tipeInput" placeholder="Contoh: KIPAS ANGIN 16-SDB" autocomplete="off">
       </div>
       <div>
-        <label>Harga (Nominal)</label>
+        <label>Harga Promo</label>
         <input id="hargaInput" inputmode="numeric" placeholder="Contoh: 327000">
       </div>
-      <!-- INPUT CASHBACK (Khusus template cashback) -->
       <div id="cashbackBox" class="hidden">
         <label style="color:#d0021b;">Nominal Cashback</label>
         <input id="cashbackInput" inputmode="numeric" placeholder="Contoh: 50000">
       </div>
     </div>
 
-    <!-- PENGATURAN POSISI & UKURAN FONT PER ELEMEN -->
+    <!-- 2. FORM INPUT KHUSUS CLEARANCE SALE -->
+    <div id="formClearance" class="grid hidden">
+      <div>
+        <label>Nama Brand (Teks/Opsional)</label>
+        <input id="clearanceBrand" placeholder="Contoh: SHARP" autocomplete="off">
+      </div>
+      <div>
+        <label>Harga Normal (Dicoret)</label>
+        <input id="normalInput" inputmode="numeric" placeholder="Contoh: 13998000">
+      </div>
+      <div>
+        <label>Harga Spesial Clearance</label>
+        <input id="specialInput" inputmode="numeric" placeholder="Contoh: 8699000">
+      </div>
+    </div>
+
+    <!-- PANEL PENGATURAN POSISI & FONT -->
     <div class="pos-box">
 
-      <!-- 1. BRAND -->
-      <div class="pos-section">
-        <div class="pos-title">🏷️ Teks Nama Brand</div>
-        <div class="pos-grid">
-          <div>
-            <label style="font-size:12px;">Ukuran Font</label>
-            <input id="brandSize" type="number" value="28">
+      <!-- CONTROL GROUP A: PROMO STANDAR & CASHBACK -->
+      <div id="ctrlStandar">
+        <div class="pos-section">
+          <div class="pos-title">🏷️ Nama Brand</div>
+          <div class="pos-grid">
+            <div><label style="font-size:12px;">Font Size</label><input id="brandSize" type="number" value="28"></div>
+            <div><label style="font-size:12px;">Posisi X</label><input id="brandX" type="number" value="55"></div>
+            <div><label style="font-size:12px;">Posisi Y</label><input id="brandY" type="number" value="170"></div>
           </div>
-          <div>
-            <label style="font-size:12px;">Posisi X (Kiri-Kanan)</label>
-            <input id="brandX" type="number" value="55">
+        </div>
+
+        <div class="pos-section">
+          <div class="pos-title">📱 Tipe / Model</div>
+          <div class="pos-grid">
+            <div><label style="font-size:12px;">Font Size</label><input id="tipeSize" type="number" value="20"></div>
+            <div><label style="font-size:12px;">Posisi X</label><input id="tipeX" type="number" value="55"></div>
+            <div><label style="font-size:12px;">Posisi Y</label><input id="tipeY" type="number" value="210"></div>
           </div>
-          <div>
-            <label style="font-size:12px;">Posisi Y (Atas-Bawah)</label>
-            <input id="brandY" type="number" value="170">
+        </div>
+
+        <div class="pos-section">
+          <div class="pos-title">💰 Teks Harga Promo</div>
+          <div class="pos-grid">
+            <div><label style="font-size:12px;">Font Size</label><input id="hargaSize" type="number" value="48"></div>
+            <div><label style="font-size:12px;">Posisi X</label><input id="hargaX" type="number" value="140"></div>
+            <div><label style="font-size:12px;">Posisi Y</label><input id="hargaY" type="number" value="420"></div>
+          </div>
+        </div>
+
+        <div id="cashbackPosSection" class="pos-section hidden">
+          <div class="pos-title" style="color:#d0021b;">🎁 Teks Cashback</div>
+          <div class="pos-grid">
+            <div><label style="font-size:12px;">Font Size</label><input id="cbSize" type="number" value="32"></div>
+            <div><label style="font-size:12px;">Posisi X</label><input id="cbX" type="number" value="140"></div>
+            <div><label style="font-size:12px;">Posisi Y</label><input id="cbY" type="number" value="530"></div>
           </div>
         </div>
       </div>
 
-      <!-- 2. TIPE / MODEL -->
-      <div class="pos-section">
-        <div class="pos-title">📱 Teks Tipe / Model</div>
-        <div class="pos-grid">
-          <div>
-            <label style="font-size:12px;">Ukuran Font</label>
-            <input id="tipeSize" type="number" value="20">
-          </div>
-          <div>
-            <label style="font-size:12px;">Posisi X (Kiri-Kanan)</label>
-            <input id="tipeX" type="number" value="55">
-          </div>
-          <div>
-            <label style="font-size:12px;">Posisi Y (Atas-Bawah)</label>
-            <input id="tipeY" type="number" value="210">
+      <!-- CONTROL GROUP B: CLEARANCE SALE -->
+      <div id="ctrlClearance" class="hidden">
+        <div class="pos-section">
+          <div class="pos-title">❌ Harga Normal (Dicoret)</div>
+          <div class="pos-grid">
+            <div><label style="font-size:12px;">Font Size</label><input id="normSize" type="number" value="85"></div>
+            <div><label style="font-size:12px;">Posisi X</label><input id="normX" type="number" value="600"></div>
+            <div><label style="font-size:12px;">Posisi Y</label><input id="normY" type="number" value="780"></div>
           </div>
         </div>
-      </div>
 
-      <!-- 3. HARGA -->
-      <div class="pos-section">
-        <div class="pos-title">💰 Teks Harga (Efek 3D / Shadow)</div>
-        <div class="pos-grid">
-          <div>
-            <label style="font-size:12px;">Ukuran Font</label>
-            <input id="hargaSize" type="number" value="48">
-          </div>
-          <div>
-            <label style="font-size:12px;">Posisi X (Kiri-Kanan)</label>
-            <input id="hargaX" type="number" value="140">
-          </div>
-          <div>
-            <label style="font-size:12px;">Posisi Y (Atas-Bawah)</label>
-            <input id="hargaY" type="number" value="420">
-          </div>
-        </div>
-      </div>
-
-      <!-- 4. CASHBACK (Kalo Aktif) -->
-      <div id="cashbackPosSection" class="pos-section hidden">
-        <div class="pos-title" style="color:#d0021b;">🎁 Teks Cashback</div>
-        <div class="pos-grid">
-          <div>
-            <label style="font-size:12px;">Ukuran Font</label>
-            <input id="cbSize" type="number" value="32">
-          </div>
-          <div>
-            <label style="font-size:12px;">Posisi X (Kiri-Kanan)</label>
-            <input id="cbX" type="number" value="140">
-          </div>
-          <div>
-            <label style="font-size:12px;">Posisi Y (Atas-Bawah)</label>
-            <input id="cbY" type="number" value="530">
+        <div class="pos-section">
+          <div class="pos-title" style="color:#d0021b;">🔥 Harga Spesial</div>
+          <div class="pos-grid">
+            <div><label style="font-size:12px;">Font Size</label><input id="specSize" type="number" value="95"></div>
+            <div><label style="font-size:12px;">Posisi X</label><input id="specX" type="number" value="600"></div>
+            <div><label style="font-size:12px;">Posisi Y</label><input id="specY" type="number" value="1110"></div>
           </div>
         </div>
       </div>
@@ -182,34 +181,20 @@ const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 const templateImg = new Image();
 
-document.fonts.ready.then(() => {
-  drawCanvas();
-});
+document.fonts.ready.then(() => { drawCanvas(); });
 
-// NAMA FILE GAMBAR DUA SERTA KOORDINAT PRESET
+// FILE GAMBAR TEMPLATE SESUAI PILIHAN
 const templatesData = {
-  standar: {
-    src: 'template-ufo.jpg', // File template UFO bawaan Anda
-    brandSize: 28, brandX: 55, brandY: 170,
-    tipeSize: 20, tipeX: 55, tipeY: 210,
-    hargaSize: 48, hargaX: 140, hargaY: 420
-  },
-  clearance: {
-    src: 'template-clearance.jpg',
-    brandSize: 28, brandX: 55, brandY: 170,
-    tipeSize: 20, tipeX: 55, tipeY: 210,
-    hargaSize: 48, hargaX: 140, hargaY: 420
-  },
-  cashback: {
-    src: 'template-cashback.jpg',
-    brandSize: 28, brandX: 55, brandY: 150,
-    tipeSize: 20, tipeX: 55, tipeY: 190,
-    hargaSize: 44, hargaX: 140, hargaY: 370,
-    cbSize: 32, cbX: 140, cbY: 530
-  }
+  standar: { src: 'template-ufo.jpg' },
+  clearance: { src: 'template-clearance.jpg' },
+  cashback: { src: 'template-cashback.jpg' }
 };
 
 const templateSelect = document.getElementById('templateSelect');
+
+// ELEMEN PROMO STANDAR
+const formStandar = document.getElementById('formStandar');
+const ctrlStandar = document.getElementById('ctrlStandar');
 const brandInput = document.getElementById('brandInput');
 const tipeInput = document.getElementById('tipeInput');
 const hargaInput = document.getElementById('hargaInput');
@@ -220,78 +205,70 @@ const cashbackPosSection = document.getElementById('cashbackPosSection');
 const brandSizeInput = document.getElementById('brandSize');
 const brandXInput = document.getElementById('brandX');
 const brandYInput = document.getElementById('brandY');
-
 const tipeSizeInput = document.getElementById('tipeSize');
 const tipeXInput = document.getElementById('tipeX');
 const tipeYInput = document.getElementById('tipeY');
-
 const hargaSizeInput = document.getElementById('hargaSize');
 const hargaXInput = document.getElementById('hargaX');
 const hargaYInput = document.getElementById('hargaY');
-
 const cbSizeInput = document.getElementById('cbSize');
 const cbXInput = document.getElementById('cbX');
 const cbYInput = document.getElementById('cbY');
 
+// ELEMEN CLEARANCE SALE
+const formClearance = document.getElementById('formClearance');
+const ctrlClearance = document.getElementById('ctrlClearance');
+const clearanceBrand = document.getElementById('clearanceBrand');
+const normalInput = document.getElementById('normalInput');
+const specialInput = document.getElementById('specialInput');
+const normSizeInput = document.getElementById('normSize');
+const normXInput = document.getElementById('normX');
+const normYInput = document.getElementById('normY');
+const specSizeInput = document.getElementById('specSize');
+const specXInput = document.getElementById('specX');
+const specYInput = document.getElementById('specY');
+
 function switchTemplate(key) {
-  const data = templatesData[key];
-  
-  brandSizeInput.value = data.brandSize;
-  brandXInput.value = data.brandX;
-  brandYInput.value = data.brandY;
-
-  tipeSizeInput.value = data.tipeSize;
-  tipeXInput.value = data.tipeX;
-  tipeYInput.value = data.tipeY;
-
-  hargaSizeInput.value = data.hargaSize;
-  hargaXInput.value = data.hargaX;
-  hargaYInput.value = data.hargaY;
-
-  if (key === 'cashback') {
-    cashbackBox.classList.remove('hidden');
-    cashbackPosSection.classList.remove('hidden');
-    if(data.cbSize) {
-      cbSizeInput.value = data.cbSize;
-      cbXInput.value = data.cbX;
-      cbYInput.value = data.cbY;
-    }
+  // Sembunyikan/Tampilkan UI Form yang sesuai
+  if (key === 'clearance') {
+    formStandar.classList.add('hidden');
+    ctrlStandar.classList.add('hidden');
+    formClearance.classList.remove('hidden');
+    ctrlClearance.classList.remove('hidden');
   } else {
-    cashbackBox.classList.add('hidden');
-    cashbackPosSection.classList.add('hidden');
+    formClearance.classList.add('hidden');
+    ctrlClearance.classList.add('hidden');
+    formStandar.classList.remove('hidden');
+    ctrlStandar.classList.remove('hidden');
+
+    if (key === 'cashback') {
+      cashbackBox.classList.remove('hidden');
+      cashbackPosSection.classList.remove('hidden');
+    } else {
+      cashbackBox.classList.add('hidden');
+      cashbackPosSection.classList.add('hidden');
+    }
   }
-  
-  templateImg.src = data.src;
+
+  templateImg.src = templatesData[key].src;
 }
 
-templateSelect.addEventListener('change', (e) => {
-  switchTemplate(e.target.value);
-});
+templateSelect.addEventListener('change', (e) => switchTemplate(e.target.value));
+templateImg.onload = () => drawCanvas();
 
-templateImg.onload = () => {
-  drawCanvas();
-};
-
-[brandInput, tipeInput, hargaInput, cashbackInput, 
- brandSizeInput, brandXInput, brandYInput,
- tipeSizeInput, tipeXInput, tipeYInput,
- hargaSizeInput, hargaXInput, hargaYInput,
- cbSizeInput, cbXInput, cbYInput].forEach(input => {
+// Event Listener Otomatis untuk Semua Input
+document.querySelectorAll('input').forEach(input => {
   input.addEventListener('input', drawCanvas);
 });
 
 document.getElementById('clear').addEventListener('click', () => {
-  brandInput.value = '';
-  tipeInput.value = '';
-  hargaInput.value = '';
-  cashbackInput.value = '';
+  document.querySelectorAll('input').forEach(input => input.value = '');
   drawCanvas();
 });
 
 document.getElementById('download').addEventListener('click', () => {
   const link = document.createElement('a');
-  const fileName = (brandInput.value + '-' + tipeInput.value).replace(/[^a-zA-Z0-9]/g, '_') || 'pricetag-ufo';
-  link.download = fileName + '.png';
+  link.download = 'price-tag-ufo.png';
   link.href = canvas.toDataURL('image/png');
   link.click();
 });
@@ -299,20 +276,16 @@ document.getElementById('download').addEventListener('click', () => {
 function formatRupiah(str) {
   if(!str) return '';
   const num = str.replace(/\D/g, '');
-  if(!num) return '';
-  return Number(num).toLocaleString('id-ID');
+  return num ? Number(num).toLocaleString('id-ID') : '';
 }
 
 function wrapText(context, text, x, y, maxWidth, lineHeight) {
   const words = text.split(' ');
   let line = '';
   let currentY = y;
-
   for (let n = 0; n < words.length; n++) {
     let testLine = line + words[n] + ' ';
-    let metrics = context.measureText(testLine);
-    let testWidth = metrics.width;
-    if (testWidth > maxWidth && n > 0) {
+    if (context.measureText(testLine).width > maxWidth && n > 0) {
       context.fillText(line, x, currentY);
       line = words[n] + ' ';
       currentY += lineHeight;
@@ -321,7 +294,6 @@ function wrapText(context, text, x, y, maxWidth, lineHeight) {
     }
   }
   context.fillText(line, x, currentY);
-  return currentY + lineHeight;
 }
 
 function drawCanvas() {
@@ -333,90 +305,137 @@ function drawCanvas() {
     ctx.drawImage(templateImg, 0, 0);
   }
 
-  // 1. RENDER BRAND (Inter 900 Extra Bold)
-  const brandText = brandInput.value.trim().toUpperCase();
-  if (brandText) {
-    const bSize = Number(brandSizeInput.value);
-    const bX = Number(brandXInput.value);
-    const bY = Number(brandYInput.value);
-    const maxWidth = canvas.width - bX - 40;
+  const mode = templateSelect.value;
 
-    ctx.font = '900 ' + bSize + "px 'Inter', sans-serif";
-    ctx.fillStyle = '#0a235c';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-    wrapText(ctx, brandText, bX, bY, maxWidth, bSize * 1.15);
-  }
+  // --- RENDER 1: CLEARANCE SALE ---
+  if (mode === 'clearance') {
+    const brandText = clearanceBrand.value.trim().toUpperCase();
+    if(brandText) {
+      ctx.font = "900 45px 'Inter', sans-serif";
+      ctx.fillStyle = '#0b4db8';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(brandText, canvas.width * 0.80, canvas.height * 0.09);
+    }
 
-  // 2. RENDER TIPE / MODEL (Inter 600 Semi-Bold)
-  const tipeText = tipeInput.value.trim().toUpperCase();
-  if (tipeText) {
-    const tSize = Number(tipeSizeInput.value);
-    const tX = Number(tipeXInput.value);
-    const tY = Number(tipeYInput.value);
-    const maxWidth = canvas.width - tX - 40;
+    // Harga Normal (Coret)
+    const normalVal = formatRupiah(normalInput.value);
+    if(normalVal) {
+      const nSize = Number(normSizeInput.value);
+      const nX = Number(normXInput.value);
+      const nY = Number(normYInput.value);
 
-    ctx.font = "600 " + tSize + "px 'Inter', sans-serif";
-    ctx.fillStyle = '#3a4b68';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-    wrapText(ctx, tipeText, tX, tY, maxWidth, tSize * 1.25);
-  }
+      ctx.font = "900 " + nSize + "px 'Inter', sans-serif";
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle = '#2c3e50';
+      ctx.fillText(normalVal, nX, nY);
 
-  // 3. RENDER HARGA PROMO (Efek Bayangan 3D Ritel Modern)
-  const hargaVal = formatRupiah(hargaInput.value);
-  if (hargaVal) {
-    const hSize = Number(hargaSizeInput.value);
-    const hX = Number(hargaXInput.value);
-    const hY = Number(hargaYInput.value);
+      // Garis Coret Merah
+      const textW = ctx.measureText(normalVal).width;
+      ctx.strokeStyle = '#d0021b';
+      ctx.lineWidth = Math.max(5, nSize / 12);
+      ctx.beginPath();
+      ctx.moveTo(nX - (textW / 2) - 15, nY);
+      ctx.lineTo(nX + (textW / 2) + 15, nY);
+      ctx.stroke();
+    }
 
-    ctx.font = "900 " + hSize + "px 'Inter', sans-serif";
+    // Harga Spesial
+    const specialVal = formatRupiah(specialInput.value);
+    if(specialVal) {
+      const sSize = Number(specSizeInput.value);
+      const sX = Number(specXInput.value);
+      const sY = Number(specYInput.value);
 
-    // Layer 1: Bayangan Lembut (Drop Shadow)
-    ctx.shadowColor = 'rgba(10, 35, 92, 0.25)';
-    ctx.shadowBlur = 6;
-    ctx.shadowOffsetX = 2;
-    ctx.shadowOffsetY = 3;
+      ctx.font = "900 " + sSize + "px 'Inter', sans-serif";
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
 
-    // Layer 2: Gradien Warna Biru Metalik
-    let gradient = ctx.createLinearGradient(0, hY - (hSize/2), 0, hY + (hSize/2));
-    gradient.addColorStop(0, '#0b4db8');
-    gradient.addColorStop(1, '#052d75');
+      let gradient = ctx.createLinearGradient(0, sY - (sSize/2), 0, sY + (sSize/2));
+      gradient.addColorStop(0, '#ff4d4d');
+      gradient.addColorStop(1, '#b30000');
 
-    ctx.fillStyle = gradient;
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'middle';
+      ctx.shadowColor = 'rgba(179, 0, 0, 0.35)';
+      ctx.shadowBlur = 8;
+      ctx.shadowOffsetX = 3;
+      ctx.shadowOffsetY = 4;
 
-    ctx.fillText(hargaVal, hX, hY);
-    ctx.shadowColor = 'transparent';
-  }
+      ctx.fillStyle = gradient;
+      ctx.fillText(specialVal, sX, sY);
+      ctx.shadowColor = 'transparent';
+    }
+  } 
+  // --- RENDER 2: TEMPLATE STANDAR & CASHBACK ---
+  else {
+    // Brand
+    const brandText = brandInput.value.trim().toUpperCase();
+    if (brandText) {
+      const bSize = Number(brandSizeInput.value);
+      const bX = Number(brandXInput.value);
+      const bY = Number(brandYInput.value);
+      ctx.font = "900 " + bSize + "px 'Inter', sans-serif";
+      ctx.fillStyle = '#0a235c';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      wrapText(ctx, brandText, bX, bY, canvas.width - bX - 40, bSize * 1.15);
+    }
 
-  // 4. RENDER CASHBACK
-  if (templateSelect.value === 'cashback') {
-    const cbVal = formatRupiah(cashbackInput.value);
-    if (cbVal) {
-      const cbSize = Number(cbSizeInput.value);
-      const cbX = Number(cbXInput.value);
-      const cbY = Number(cbYInput.value);
+    // Tipe
+    const tipeText = tipeInput.value.trim().toUpperCase();
+    if (tipeText) {
+      const tSize = Number(tipeSizeInput.value);
+      const tX = Number(tipeXInput.value);
+      const tY = Number(tipeYInput.value);
+      ctx.font = "600 " + tSize + "px 'Inter', sans-serif";
+      ctx.fillStyle = '#3a4b68';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+      wrapText(ctx, tipeText, tX, tY, canvas.width - tX - 40, tSize * 1.25);
+    }
 
-      ctx.font = "900 " + cbSize + "px 'Inter', sans-serif";
-      
-      ctx.shadowColor = 'rgba(208, 2, 27, 0.3)';
-      ctx.shadowBlur = 4;
-      ctx.shadowOffsetX = 1;
-      ctx.shadowOffsetY = 2;
-
-      ctx.fillStyle = '#d0021b';
+    // Harga
+    const hargaVal = formatRupiah(hargaInput.value);
+    if (hargaVal) {
+      const hSize = Number(hargaSizeInput.value);
+      const hX = Number(hargaXInput.value);
+      const hY = Number(hargaYInput.value);
+      ctx.font = "900 " + hSize + "px 'Inter', sans-serif";
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
 
-      ctx.fillText(cbVal, cbX, cbY);
+      let gradient = ctx.createLinearGradient(0, hY - (hSize/2), 0, hY + (hSize/2));
+      gradient.addColorStop(0, '#0b4db8');
+      gradient.addColorStop(1, '#052d75');
+
+      ctx.shadowColor = 'rgba(10, 35, 92, 0.25)';
+      ctx.shadowBlur = 6;
+      ctx.shadowOffsetX = 2;
+      ctx.shadowOffsetY = 3;
+
+      ctx.fillStyle = gradient;
+      ctx.fillText(hargaVal, hX, hY);
       ctx.shadowColor = 'transparent';
+    }
+
+    // Cashback
+    if (mode === 'cashback') {
+      const cbVal = formatRupiah(cashbackInput.value);
+      if (cbVal) {
+        const cbSize = Number(cbSizeInput.value);
+        const cbX = Number(cbXInput.value);
+        const cbY = Number(cbYInput.value);
+        ctx.font = "900 " + cbSize + "px 'Inter', sans-serif";
+        ctx.fillStyle = '#d0021b';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(cbVal, cbX, cbY);
+      }
     }
   }
 }
 
-// OTOMATIS LOAD TEMPLATE UFO SAAT PERTAMA DIBUKA
+// Inisialisasi awal
 switchTemplate('standar');
 </script>
 </body>
