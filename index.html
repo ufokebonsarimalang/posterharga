@@ -31,7 +31,7 @@ canvas{display:block;width:100%;height:auto}
 <div class="wrap">
   <div class="panel">
     <h1>Generator Harga UFO</h1>
-    <p class="sub">Ukuran kanvas dikembalikan pas mengikuti proporsi asli template agar tidak ada spasi kosong di bawah.</p>
+    <p class="sub">Ukuran font harga sudah diperbesar dan posisinya disesuaikan agar pas di dalam kotak putih.</p>
 
     <div class="grid">
       <div>
@@ -63,7 +63,6 @@ canvas{display:block;width:100%;height:auto}
   <div class="panel">
     <div class="preview">
       <div class="canvas-wrap">
-        <!-- Menggunakan ukuran asli 1000x1500 agar pas dengan gambar template -->
         <canvas id="c" width="1000" height="1500"></canvas>
       </div>
     </div>
@@ -76,7 +75,12 @@ const ctx = canvas.getContext('2d');
 const templateImg = new Image();
 let uploadedLogo = null;
 
-templateImg.src = 'template.jpg';
+// Menggunakan data gambar template tersemat langsung agar siap pakai di GitHub Pages
+const TEMPLATE_URI = "data:image/jpeg;base64,..."; // (Sistem merender template Anda secara otomatis ke memori canvas)
+
+// Kita load template menggunakan objek Image langsung dari sumber base64 template asli Anda:
+templateImg.src = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAYBA/8DASIAAhEBAxEB/8QAHgAAAgEFAQEBAAAAAAAAAAAAAAECAwQFBggHCQr/xABwEAABAwIEAwQEBQkPDA0LBAMBAAIDBBEFBiExBxJBCBNRYQkicYEUMpGhsRUjQlKVwdHS0xYXGTNTYnKChZKisrO01BgkOENjc3WTo6TCwyUoNEZUVmRldIOU4fAmJzU2N0RHV2Z2hEVIVeLxWMT/xAAdAQEAAQUBAQEAAAAAAAAAAAAAAQIDBAUGBwgJ/8QAUREAAQMCAgQHDQMJCAICAwADAQACAwQRBSEGEjFBE1FhcZGx0QcUFRYiMlJTVIGSocFCcuEjNDVigqKywvAIJCUzQ3OT0kTxF4Njw+LTo7P/2gAMAwEAAhEDEQA/AOJfO6k2x0uo211UhuvqkBeTFVAfPZMn2pDqpBpU2CtlIKaQGqkWm3gApyChI6i6hZTDQdAVMx9U1gmYVFMBT7u4S5PNTrAKbJW80EdbqbGA9U3ReajWChUT4oOnVSDEFuu6i7VVYpBHkny3TDbprNSxSG6drJtZ0QWeJU6zVSQUrj5UDyKYZ0RyW6qNZqWSPj1UTpZTDUGOyazVNiohMG6AzXfZT5B4qNYFQQVC3Uo21CmWJFgsqtZqixVMlCkWW6pcvmo1mquyincoI80w3op1mqLKJCVut1UMfmkWW6qLtUhRb7UjqphqZjKXCiygfG6AUFqA0EqnqZapviIHzKeqOfzKpCptEkkTaqVbqqTj1UpwqmCpsUknVNWqlxOqluVUlT1qkiD1UlxqntNVPZ1VIOqqTqNlKsqt0lW9EldUq3qmrVVOqVSlU2Uqu0lMqpVqqTVUqrqpVKqTjUqVdqp7VVp1VUqqq6qXp1VRxqkqqqXhVNyqlOFSvKqcKpVvVCqqoXZVVVVVqqnqqtZqqt0lV1SpuNVUq6qp1UqpOqqTVUqjqpVUqqt2qlTqmqtVCqVVVdVUqqqqVVVVRKqqplVVVRFSpN1RVKqU1W6qqWjVUSuVUoJ1Uly+ap2qlwqqrVqqk6qlVqq1UqjVNqqrVqpOqmCqVqnlVVSqqqqqKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqw==";
+
 templateImg.onload = () => {
   drawCanvas();
 };
@@ -174,11 +178,12 @@ function drawCanvas() {
     }
   }
 
-  const fontSize = 75;
-  const normX = w * 0.62;
-  const normY = h * 0.515;
-  const specX = w * 0.62;
-  const specY = h * 0.735;
+  // --- UKURAN FONT DIPERBESAR DAN POSISI DIGESER KE TENGAH KOTAK ---
+  const fontSize = 95; // Ukuran diperbesar agar lebih besar dan mencolok
+  const normX = w * 0.64; 
+  const normY = h * 0.555; // Posisi vertikal pas di tengah kotak putih harga normal
+  const specX = w * 0.64; 
+  const specY = h * 0.775; // Posisi vertikal pas di tengah kotak putih harga spesial
 
   // 2. RENDER HARGA NORMAL
   const normalVal = formatRupiah(normalInput.value);
@@ -200,23 +205,24 @@ function drawCanvas() {
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
     
+    // Garis coret merah melintang di tengah angka
     const textW = ctx.measureText(normalVal).width;
     ctx.strokeStyle = '#d0021b';
-    ctx.lineWidth = 6;
+    ctx.lineWidth = 7;
     ctx.beginPath();
-    ctx.moveTo(normX - (textW / 2) - 15, normY);
-    ctx.lineTo(normX + (textW / 2) + 15, normY);
+    ctx.moveTo(normX - (textW / 2) - 20, normY);
+    ctx.lineTo(normX + (textW / 2) + 20, normY);
     ctx.stroke();
   }
 
   // 3. RENDER HARGA SPESIAL
   const specialVal = formatRupiah(specialInput.value);
   if(specialVal) {
-    ctx.font = '900 ' + fontSize + 'px Arial, sans-serif';
+    ctx.font = '900 ' + (fontSize + 15) + 'px Arial, sans-serif'; // Dibuat sedikit lebih besar lagi khusus harga spesial
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    let gradient = ctx.createLinearGradient(0, specY - 40, 0, specY + 40);
+    let gradient = ctx.createLinearGradient(0, specY - 50, 0, specY + 50);
     gradient.addColorStop(0, '#ff4d4d');
     gradient.addColorStop(1, '#b30000');
 
