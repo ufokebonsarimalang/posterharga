@@ -1,205 +1,237 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Poster Clearance Sale A4 - UFO Kebonsari</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
-    <style>
-        * { box-sizing: border-box; font-family: 'Outfit', sans-serif !important; }
-        body {
-            margin: 0; padding: 20px; min-height: 100vh;
-            background: linear-gradient(135deg, #0b0f19 0%, #111827 100%);
-            color: #f3f4f6; display: flex; flex-direction: column; align-items: center;
-        }
-        .container {
-            width: 100%; max-width: 600px; background: #111827;
-            border: 1px solid rgba(212, 175, 55, 0.3); border-radius: 20px;
-            padding: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); margin-top: 20px;
-        }
-        h2 { text-align: center; color: #d4af37; margin-top: 0; font-weight: 800; }
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 12.5px; font-weight: 700; color: #d1d5db; margin-bottom: 8px; }
-        .input-group input, .input-group select {
-            width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #374151;
-            background: #1f2937; color: #ffffff; font-size: 15px; outline: none;
-        }
-        .input-group input:focus, .input-group select:focus { border-color: #d4af37; }
-        button {
-            width: 100%; padding: 16px; border: none; border-radius: 12px; cursor: pointer;
-            font-weight: 800; font-size: 16px; color: #111827; background: linear-gradient(135deg, #f3e8ff 0%, #d4af37 100%);
-            box-shadow: 0 10px 20px -5px rgba(212, 175, 55, 0.3); transition: 0.2s;
-        }
-        button:hover { opacity: 0.95; transform: translateY(-2px); }
-        #previewArea { margin-top: 25px; text-align: center; width: 100%; }
-        
-        #popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 99999; justify-content: center; align-items: center; }
-        .modern-popup-box { background: #111827; padding: 25px; border-radius: 16px; text-align: center; border: 1px solid rgba(212, 175, 55, 0.4); }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Generator Harga UFO Electronics</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#eef3fb;color:#102a5c}
+.wrap{max-width:1100px;margin:auto;padding:22px}
+h1{margin:0 0 6px;font-size:28px}
+.sub{margin:0 0 18px;color:#5b6b86}
+.panel{background:white;border-radius:18px;padding:18px;box-shadow:0 8px 30px #0001;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+label{font-weight:700;font-size:14px;display:block;margin-bottom:7px}
+input{width:100%;padding:13px 14px;border:1px solid #ccd6e8;border-radius:10px;font-size:17px;outline:none}
+input:focus{border-color:#1558c0;box-shadow:0 0 0 3px #1558c015}
+.logo-row{margin-top:14px}
+.buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+button{border:0;border-radius:10px;padding:13px 18px;font-size:16px;font-weight:700;cursor:pointer}
+.primary{background:#0b4db8;color:#fff}
+.secondary{background:#e8eef8;color:#123c78}
+.preview{display:flex;justify-content:center}
+.canvas-wrap{width:min(100%,600px);background:#ddd;border-radius:14px;overflow:hidden;box-shadow:0 10px 35px #0002}
+canvas{display:block;width:100%;height:auto}
+.hint{font-size:13px;color:#69758a;margin-top:10px}
+@media(max-width:750px){.grid{grid-template-columns:1fr}.wrap{padding:12px}h1{font-size:23px}}
+</style>
 </head>
 <body>
+<div class="wrap">
+  <div class="panel">
+    <h1>Generator Harga UFO</h1>
+    <p class="sub">Ukuran kanvas dikembalikan pas mengikuti proporsi asli template agar tidak ada spasi kosong di bawah.</p>
 
-    <h1 style="color: #ffffff; font-weight: 800; margin-bottom: 5px; text-align:center;">UFO KEBONSARI MALANG</h1>
-    <p style="color: #9ca3af; margin-top: 0; font-size: 14px;">Generator Master Template Otomatis</p>
-
-    <div class="container">
-        <h2>🏷️ Input Data Promosi</h2>
-
-        <div class="input-group">
-            <label>PILIH BRAND PRODUK</label>
-            <select id="genBrand">
-                <option value="beko">Beko</option>
-                <option value="samsung">Samsung</option>
-                <option value="lg">LG</option>
-                <option value="polytron">Polytron</option>
-                <option value="sharp">Sharp</option>
-            </select>
-        </div>
-
-        <div class="input-group">
-            <label>HARGA NORMAL (CORET)</label>
-            <input type="text" id="genHargaAwal" placeholder="Contoh: Rp 13.998.000" oninput="formatRupiahInput(this)">
-        </div>
-
-        <div class="input-group">
-            <label>HARGA CLEARANCE / SPESIAL</label>
-            <input type="text" id="genHargaDiskon" placeholder="Contoh: Rp 8.699.000" oninput="formatRupiahInput(this)">
-        </div>
-
-        <button onclick="generatePosterTemplate()">🖨️ Buat & Download Poster A4</button>
-
-        <div id="previewArea"></div>
+    <div class="grid">
+      <div>
+        <label>Nama Brand (Jika Tanpa Logo)</label>
+        <input id="brand" placeholder="Contoh: SHARP" autocomplete="off">
+      </div>
+      <div>
+        <label>Harga Normal</label>
+        <input id="normal" inputmode="numeric" placeholder="Contoh: 13998000">
+      </div>
+      <div>
+        <label>Harga Spesial</label>
+        <input id="special" inputmode="numeric" placeholder="Contoh: 8699000">
+      </div>
     </div>
 
-<script>
-function formatRupiahInput(el) {
-    let val = el.value.replace(/[^,\d]/g, "").toString();
-    let split = val.split(",");
-    let sisa = split[0].length % 3;
-    let rupiah = split[0].substr(0, sisa);
-    let ribuan = split[0].substr(sisa).match(/\d{3}/gi);
-    if (ribuan) {
-        let separator = sisa ? "." : "";
-        rupiah += separator + ribuan.join(".");
-    }
-    rupiah = split[1] !== undefined ? rupiah + "," + split[1] : rupiah;
-    el.value = rupiah ? "Rp " + rupiah : "";
-}
+    <div class="logo-row">
+      <label>Upload Logo Brand (Opsional)</label>
+      <input id="logo" type="file" accept="image/*">
+      <div class="hint">Logo brand akan tampil di area kanan atas template.</div>
+    </div>
 
-function generatePosterTemplate() {
-    let brand = document.getElementById("genBrand").value;
-    let hargaAwal = (document.getElementById("genHargaAwal").value || "0").replace("Rp ", "");
-    let hargaDiskon = (document.getElementById("genHargaDiskon").value || "0").replace("Rp ", "");
+    <div class="buttons">
+      <button class="primary" id="download">⬇ Simpan Gambar (PNG)</button>
+      <button class="secondary" id="clear">Bersihkan</button>
+    </div>
+  </div>
 
-    showPopup("Sedang merender poster HD...");
-
-    let canvas = document.createElement("canvas");
-    canvas.width = 2480;  // Standar Cetak A4 (300 DPI)
-    canvas.height = 3508;
-    let ctx = canvas.getContext("2d");
-
-    // 1. Muat Master Template Kosongan
-    let templateImg = new Image();
-    templateImg.crossOrigin = "anonymous";
-    templateImg.src = "template.png";
-
-    templateImg.onload = function() {
-        ctx.drawImage(templateImg, 0, 0, canvas.width, canvas.height);
-
-        // 2. Muat Logo Brand di Kanan Atas
-        let logoBrand = new Image();
-        logoBrand.crossOrigin = "anonymous";
-        logoBrand.src = `${brand}.png`;
-
-        logoBrand.onload = function() {
-            let bWidth = 650;
-            let bHeight = (logoBrand.height / logoBrand.width) * bWidth;
-            // Posisi pas di pojok kanan atas template
-            ctx.drawImage(logoBrand, canvas.width - bWidth - 120, 80, bWidth, bHeight);
-            
-            cetakHargaMaster();
-        };
-
-        logoBrand.onerror = function() {
-            alert("Gagal memuat logo brand: " + brand + ".png. Pastikan file logo tersebut ada di GitHub!");
-            cetakHargaMaster();
-        };
-    };
-
-    templateImg.onerror = function() {
-        tutupPopup();
-        alert("Gagal memuat 'template.png'. Pastikan file master template sudah di-upload.");
-    };
-
-    // 3. Cetak Harga Sesuai Posisi Kotak Putih Template Master
-  function cetakHargaMaster() {
-        // -- Cetak Harga Normal di Kotak Putih Tengah --
-        // Kotak putih tengah berada di sekitar Y = 1380 hingga 1550
-        ctx.fillStyle = "#0f172a";
-        ctx.font = "800 110px 'Outfit', sans-serif";
-        ctx.textAlign = "left";
-        ctx.fillText(hargaAwal, 680, 1470); // Posisi Y pas di tengah kotak putih tengah
-
-        // Garis coret merah menyilang Harga Normal
-        ctx.strokeStyle = "#dc2626";
-        ctx.lineWidth = 14;
-        ctx.beginPath();
-        ctx.moveTo(650, 1435);
-        ctx.lineTo(2150, 1435);
-        ctx.stroke();
-
-        // -- Cetak Harga Spesial di Kotak Putih Bawah --
-        // Kotak putih bawah berada di sekitar Y = 2500 hingga 2800
-        ctx.fillStyle = "#1e3a8a";
-        ctx.font = "900 180px 'Outfit', sans-serif";
-        ctx.textAlign = "left";
-        ctx.fillText(hargaDiskon, 680, 2690); // Posisi Y pas di tengah kotak putih bawah
-
-        tutupPopup();
-
-        // 4. Siapkan Link Download Hasil HD
-        let imageURL = canvas.toDataURL("image/png", 1.0);
-        let previewContainer = document.getElementById("previewArea");
-        previewContainer.innerHTML = `
-            <div style="background:#1f2937; padding:20px; border-radius:14px; display:inline-block; border:1px solid #374151;">
-                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Posisi Harga Telah Disesuaikan!</p>
-                <a href="${imageURL}" download="Poster_Clearance_${brand}_${Date.now()}.png" style="display:inline-block; padding:12px 24px; background:#10b981; color:#fff; font-weight:800; text-decoration:none; border-radius:8px;">
-                    📥 Download Poster A4 (HD)
-                </a>
-            </div>
-        `;
-    }
-
-function showPopup(pesan) {
-    let p = document.getElementById("popup");
-    if(!p) {
-        let div = document.createElement("div");
-        div.id = "popup";
-        div.innerHTML = `<div class="modern-popup-box"><h3 style="color:#d4af37; margin-top:0;">Informasi</h3><p id="popupText" style="color:#fff;"></p></div>`;
-        document.body.appendChild(div);
-    }
-    document.getElementById("popupText").innerText = pesan;
-    document.getElementById("popup").style.display = "flex";
-}
-
-function tutupPopup() { 
-    let p = document.getElementById("popup");
-    if(p) p.style.display = "none"; 
-}
-</script>
-
-<!-- POPUP -->
-<div id="popup">
-  <div class="modern-popup-box">
-    <h3 style="margin:0 0 10px; color:#d4af37;">Informasi</h3>
-    <div id="popupText" style="margin-bottom: 15px; color: #cbd5e1;"></div>
-    <button onclick="tutupPopup()" style="border: none; padding: 10px 24px; border-radius: 9px; cursor: pointer; color: #111827; font-weight: 700; background: #d4af37;">OK</button>
+  <div class="panel">
+    <div class="preview">
+      <div class="canvas-wrap">
+        <!-- Menggunakan ukuran asli 1000x1500 agar pas dengan gambar template -->
+        <canvas id="c" width="1000" height="1500"></canvas>
+      </div>
+    </div>
   </div>
 </div>
 
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const templateImg = new Image();
+let uploadedLogo = null;
+
+templateImg.src = 'template.jpg';
+templateImg.onload = () => {
+  drawCanvas();
+};
+
+const brandInput = document.getElementById('brand');
+const normalInput = document.getElementById('normal');
+const specialInput = document.getElementById('special');
+const logoInput = document.getElementById('logo');
+
+[brandInput, normalInput, specialInput].forEach(input => {
+  input.addEventListener('input', drawCanvas);
+});
+
+logoInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if(file) {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        uploadedLogo = img;
+        drawCanvas();
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    uploadedLogo = null;
+    drawCanvas();
+  }
+});
+
+document.getElementById('clear').addEventListener('click', () => {
+  brandInput.value = '';
+  normalInput.value = '';
+  specialInput.value = '';
+  logoInput.value = '';
+  uploadedLogo = null;
+  drawCanvas();
+});
+
+document.getElementById('download').addEventListener('click', () => {
+  const link = document.createElement('a');
+  link.download = (brandInput.value || 'ufo-clearance-sale') + '.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+});
+
+function formatRupiah(str) {
+  if(!str) return '';
+  const num = str.replace(/\D/g, '');
+  if(!num) return '';
+  return Number(num).toLocaleString('id-ID');
+}
+
+function drawCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  if(templateImg.complete && templateImg.naturalWidth !== 0) {
+    canvas.width = templateImg.naturalWidth;
+    canvas.height = templateImg.naturalHeight;
+    ctx.drawImage(templateImg, 0, 0);
+  }
+
+  const w = canvas.width;
+  const h = canvas.height;
+
+  // 1. LOGO BRAND DI KANAN ATAS
+  if (uploadedLogo) {
+    const targetW = w * 0.30;
+    const targetH = h * 0.12;
+    const targetX = w * 0.65;
+    const targetY = h * 0.04;
+    
+    let hRatio = targetW / uploadedLogo.width;
+    let vRatio = targetH / uploadedLogo.height;
+    let ratio  = Math.min(hRatio, vRatio);
+    
+    let centerShiftX = (targetW - uploadedLogo.width * ratio) / 2;
+    let centerShiftY = (targetH - uploadedLogo.height * ratio) / 2;  
+    
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(targetX, targetY, targetW, targetH);
+
+    ctx.drawImage(uploadedLogo, 0, 0, uploadedLogo.width, uploadedLogo.height,
+                  targetX + centerShiftX, targetY + centerShiftY, uploadedLogo.width * ratio, uploadedLogo.height * ratio);
+  } else {
+    const brandText = brandInput.value.toUpperCase();
+    if(brandText) {
+      ctx.font = 'bold 45px Arial, sans-serif';
+      ctx.fillStyle = '#0b4db8';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(brandText, w * 0.80, h * 0.09);
+    }
+  }
+
+  const fontSize = 75;
+  const normX = w * 0.62;
+  const normY = h * 0.515;
+  const specX = w * 0.62;
+  const specY = h * 0.735;
+
+  // 2. RENDER HARGA NORMAL
+  const normalVal = formatRupiah(normalInput.value);
+  if(normalVal) {
+    ctx.font = '900 ' + fontSize + 'px Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
+    ctx.shadowBlur = 6;
+    ctx.shadowOffsetX = 3;
+    ctx.shadowOffsetY = 3;
+
+    ctx.fillStyle = '#2c3e50';
+    ctx.fillText(normalVal, normX, normY);
+
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+    
+    const textW = ctx.measureText(normalVal).width;
+    ctx.strokeStyle = '#d0021b';
+    ctx.lineWidth = 6;
+    ctx.beginPath();
+    ctx.moveTo(normX - (textW / 2) - 15, normY);
+    ctx.lineTo(normX + (textW / 2) + 15, normY);
+    ctx.stroke();
+  }
+
+  // 3. RENDER HARGA SPESIAL
+  const specialVal = formatRupiah(specialInput.value);
+  if(specialVal) {
+    ctx.font = '900 ' + fontSize + 'px Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    let gradient = ctx.createLinearGradient(0, specY - 40, 0, specY + 40);
+    gradient.addColorStop(0, '#ff4d4d');
+    gradient.addColorStop(1, '#b30000');
+
+    ctx.shadowColor = 'rgba(179, 0, 0, 0.35)';
+    ctx.shadowBlur = 8;
+    ctx.shadowOffsetX = 3;
+    ctx.shadowOffsetY = 4;
+
+    ctx.fillStyle = gradient;
+    ctx.fillText(specialVal, specX, specY);
+
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+  }
+}
+</script>
 </body>
 </html>
