@@ -48,13 +48,14 @@ canvas{display:block;width:100%;height:auto}
 <div class="wrap">
   <div class="panel">
     <h1>Generator Price Tag UFO (Font Inter & Efek Modern)</h1>
-    <p class="sub">Tampilan teks kini menggunakan Font Inter dengan efek bayangan khas ritel modern.</p>
+    <p class="sub">Pilih jenis template, lalu isi data brand, tipe, dan harganya.</p>
 
-    <!-- PILIHAN TEMPLATE -->
+    <!-- PILIHAN TEMPLATE (CLEARANCE SALE KEMBALI DITAMBAHKAN) -->
     <div style="margin-bottom:16px;">
       <label style="color:#0b4db8;font-size:16px;">🎯 Pilih Jenis Template / Promo:</label>
       <select id="templateSelect">
-        <option value="standar">Template Standar / Harga Promo</option>
+        <option value="clearance">Clearance Sale</option>
+        <option value="standar">Template Standar / Promo Reguler</option>
         <option value="cashback">Template Promo Cashback</option>
       </select>
     </div>
@@ -181,12 +182,18 @@ const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 const templateImg = new Image();
 
-// MEMASTIKAN FONT INTER TERMUAT DENGAN SEMPURNA SEBELUM RENDER
 document.fonts.ready.then(() => {
   drawCanvas();
 });
 
+// DATA PRESET UNTUK 3 TEMPLATE LENGKAP
 const templatesData = {
+  clearance: {
+    src: 'template-clearance.jpg',
+    brandSize: 28, brandX: 55, brandY: 170,
+    tipeSize: 20, tipeX: 55, tipeY: 210,
+    hargaSize: 48, hargaX: 140, hargaY: 420
+  },
   standar: {
     src: 'template-ufo.jpg',
     brandSize: 28, brandX: 55, brandY: 170,
@@ -371,7 +378,7 @@ function drawCanvas() {
     ctx.shadowOffsetX = 2;
     ctx.shadowOffsetY = 3;
 
-    // Layer 2: Gradien Warna Biru Metalik / Emas Ritel
+    // Layer 2: Gradien Warna Biru Metalik
     let gradient = ctx.createLinearGradient(0, hY - (hSize/2), 0, hY + (hSize/2));
     gradient.addColorStop(0, '#0b4db8');
     gradient.addColorStop(1, '#052d75');
@@ -381,10 +388,10 @@ function drawCanvas() {
     ctx.textBaseline = 'middle';
 
     ctx.fillText(hargaVal, hX, hY);
-    ctx.shadowColor = 'transparent'; // Reset Shadow
+    ctx.shadowColor = 'transparent';
   }
 
-  // 4. RENDER CASHBACK (Efek Merah Menyala)
+  // 4. RENDER CASHBACK
   if (templateSelect.value === 'cashback') {
     const cbVal = formatRupiah(cashbackInput.value);
     if (cbVal) {
@@ -409,7 +416,7 @@ function drawCanvas() {
   }
 }
 
-switchTemplate('standar');
+switchTemplate('clearance');
 </script>
 </body>
 </html>
