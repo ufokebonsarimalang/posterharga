@@ -7,7 +7,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         * { box-sizing: border-box; font-family: 'Outfit', sans-serif !important; }
@@ -37,7 +37,6 @@
         button:hover { opacity: 0.95; transform: translateY(-2px); }
         #previewArea { margin-top: 25px; text-align: center; width: 100%; }
         
-        /* Popup Info */
         #popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 99999; justify-content: center; align-items: center; }
         .modern-popup-box { background: #111827; padding: 25px; border-radius: 16px; text-align: center; border: 1px solid rgba(212, 175, 55, 0.4); }
     </style>
@@ -45,10 +44,10 @@
 <body>
 
     <h1 style="color: #ffffff; font-weight: 800; margin-bottom: 5px; text-align:center;">UFO KEBONSARI MALANG</h1>
-    <p style="color: #9ca3af; margin-top: 0; font-size: 14px;">Generator Khusus Poster Clearance Sale A4</p>
+    <p style="color: #9ca3af; margin-top: 0; font-size: 14px;">Generator Template Resmi Poster Clearance Sale</p>
 
     <div class="container">
-        <h2>🏷️ Buat Poster Promosi</h2>
+        <h2>🏷️ Input Harga Promosi</h2>
 
         <div class="input-group">
             <label>PILIH BRAND PRODUK</label>
@@ -67,11 +66,11 @@
         </div>
 
         <div class="input-group">
-            <label>HARGA CLEARANCE / SPESIAL</label>
+            <label>HARGA SPESIAL / CLEARANCE</label>
             <input type="text" id="genHargaDiskon" placeholder="Contoh: Rp 8.699.000" oninput="formatRupiahInput(this)">
         </div>
 
-        <button onclick="generatePosterA4()">🖨️ Generate & Download Poster A4</button>
+        <button onclick="generatePosterTemplate()">🖨️ Buat & Download Poster A4</button>
 
         <div id="previewArea"></div>
     </div>
@@ -91,181 +90,100 @@ function formatRupiahInput(el) {
     el.value = rupiah ? "Rp " + rupiah : "";
 }
 
-function generatePosterA4() {
+function generatePosterTemplate() {
     let brand = document.getElementById("genBrand").value;
-    let hargaAwal = document.getElementById("genHargaAwal").value || "Rp 0";
+    let hargaAwal = document.getElementById("genHargaAwal" ).value || "Rp 0";
     let hargaDiskon = document.getElementById("genHargaDiskon").value || "Rp 0";
 
-    showPopup("Sedang merender poster resolusi tinggi A4...");
+    showPopup("Sedang memuat template & merender poster HD...");
 
     let canvas = document.createElement("canvas");
-    canvas.width = 2480;  // Ukuran Cetak A4 Standar (300 DPI)
+    canvas.width = 2480;  // Ukuran Standar Cetak A4 (300 DPI)
     canvas.height = 3508;
     let ctx = canvas.getContext("2d");
 
-    // Ganti 'USERNAME-ANDA/NAMA-REPO' dengan akun GitHub Anda
-   let logoUrl = `https://raw.githubusercontent.com/ufokebonsarimalang/posterharga/main/images/${brand}.png`;
-    let logoImg = new Image();
-    logoImg.crossOrigin = "anonymous";
-    logoImg.src = logoUrl;
+    // 1. Muat Gambar Template Master (background poster asli Anda)
+    let templateImg = new Image();
+    templateImg.crossOrigin = "anonymous";
+    templateImg.src = "template.png";
 
-    logoImg.onload = function() {
-        // 1. Background Dasar Putih Bersih
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    templateImg.onload = function() {
+        // Gambar template memenuhi seluruh kanvas A4
+        ctx.drawImage(templateImg, 0, 0, canvas.width, canvas.height);
 
-        // 2. Header Atas & Logo Brand
-        ctx.fillStyle = "#0f172a";
-        ctx.fillRect(0, 0, canvas.width, 320);
-
-        // Logo UFO di Kiri Atas (Pastikan file logo.png ada satu folder dengan file ini di GitHub)
+        // 2. Muat Logo UFO di Kiri Atas
         let logoUfo = new Image();
+        logoUfo.crossOrigin = "anonymous";
         logoUfo.src = "logo.png";
+        
         logoUfo.onload = function() {
-            ctx.drawImage(logoUfo, 100, 60, 350, 200);
+            ctx.drawImage(logoUfo, 90, 60, 380, 210);
+            muatLogoBrand();
+        };
+        logoUfo.onerror = function() { muatLogoBrand(); }; // Lanjut jika logo ufo gagal
+    };
+
+    templateImg.onerror = function() {
+        tutupPopup();
+        alert("Gagal memuat 'template.png'. Pastikan file template sudah di-upload di root GitHub.");
+    };
+
+    // 3. Muat Logo Brand di Kanan Atas
+    function muatLogoBrand() {
+        let logoBrand = new Image();
+        logoBrand.crossOrigin = "anonymous";
+        logoBrand.src = `${brand}.png`;
+
+        logoBrand.onload = function() {
+            let bWidth = 600;
+            let bHeight = (logoBrand.height / logoBrand.width) * bWidth;
+            // Posisi pas di pojok kanan atas area template
+            ctx.drawImage(logoBrand, canvas.width - bWidth - 120, 70, bWidth, bHeight);
+            
+            cetakTeksHarga();
         };
 
-        // Logo Brand di Kanan Atas
-        let logoWidth = 550;
-        let logoHeight = (logoImg.height / logoImg.width) * logoWidth;
-        ctx.drawImage(logoImg, canvas.width - logoWidth - 120, 80, logoWidth, logoHeight);
+        logoBrand.onerror = function() {
+            cetakTeksHarga(); // Tetap lanjut cetak harga jika logo brand terlewat
+        };
+    }
 
-        // Garis Biru Bawah Logo Brand
-        ctx.fillStyle = "#0088cc";
-        ctx.fillRect(canvas.width - logoWidth - 120, logoHeight + 110, logoWidth, 15);
-
-        // 3. Banner Utama "CLEARANCE SALE"
-        ctx.fillStyle = "#dc2626";
-        ctx.beginPath();
-        ctx.roundRect(250, 480, 1980, 420, 40);
-        ctx.fill();
-
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "900 160px 'Outfit', sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText("CLEARANCE", canvas.width / 2, 720);
-
-        // Kotak Kuning "SALE"
-        ctx.fillStyle = "#facc15";
-        ctx.beginPath();
-        ctx.roundRect(840, 830, 800, 240, 30);
-        ctx.fill();
-
+    // 4. Cetak Teks Harga Normal & Spesial secara Presisi di atas Template
+    function cetakTeksHarga() {
+        // -- HARGA NORMAL --
         ctx.fillStyle = "#0f172a";
-        ctx.font = "900 130px 'Outfit', sans-serif";
-        ctx.fillText("SALE", canvas.width / 2, 1000);
-
-        // 4. Panel Harga Normal (Dicoret)
-        ctx.fillStyle = "#f1f5f9";
-        ctx.beginPath();
-        ctx.roundRect(300, 1200, 1880, 260, 20);
-        ctx.fill();
-        ctx.strokeStyle = "#cbd5e1";
-        ctx.lineWidth = 4;
-        ctx.stroke();
-
-        // Label Biru "HARGA NORMAL"
-        ctx.fillStyle = "#1e3a8a";
-        ctx.beginPath();
-        ctx.roundRect(330, 1230, 340, 200, 15);
-        ctx.fill();
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "700 45px 'Outfit', sans-serif";
-        ctx.fillText("HARGA", 500, 1315);
-        ctx.fillText("NORMAL", 500, 1385);
-
-        // Nilai Harga Normal
-        ctx.fillStyle = "#0f172a";
-        ctx.font = "800 110px 'Outfit', sans-serif";
+        ctx.font = "800 115px 'Outfit', sans-serif";
         ctx.textAlign = "left";
-        ctx.fillText(hargaAwal, 750, 1365);
+        ctx.fillText(hargaAwal, 750, 1370);
 
-        // Garis Coret Merah Menyilang Harga Normal
+        // Garis coret merah menyilang Harga Normal
         ctx.strokeStyle = "#dc2626";
-        ctx.lineWidth = 12;
+        ctx.lineWidth = 14;
         ctx.beginPath();
-        ctx.moveTo(730, 1340);
-        ctx.lineTo(2100, 1340);
+        ctx.moveTo(720, 1335);
+        ctx.lineTo(2100, 1335);
         ctx.stroke();
 
-        // 5. Panah "HEMAT HINGGA"
-        ctx.fillStyle = "#dc2626";
-        ctx.beginPath();
-        ctx.moveTo(canvas.width / 2 - 150, 1530);
-        ctx.lineTo(canvas.width / 2 + 150, 1530);
-        ctx.lineTo(canvas.width / 2 + 150, 1750);
-        ctx.lineTo(canvas.width / 2 + 280, 1750);
-        ctx.lineTo(canvas.width / 2, 1980);
-        ctx.lineTo(canvas.width / 2 - 280, 1750);
-        ctx.lineTo(canvas.width / 2 - 150, 1750);
-        ctx.closePath();
-        ctx.fill();
-
+        // -- HARGA SPESIAL / CLEARANCE --
         ctx.fillStyle = "#ffffff";
-        ctx.textAlign = "center";
-        ctx.font = "800 42px 'Outfit', sans-serif";
-        ctx.fillText("HEMAT", canvas.width / 2, 1610);
-        ctx.fillText("HINGGA", canvas.width / 2, 1665);
-
-        // 6. Panel Harga Spesial / Clearance (Utama)
-        ctx.fillStyle = "#1e3a8a";
-        ctx.beginPath();
-        ctx.roundRect(250, 2080, 1980, 360, 30);
-        ctx.fill();
-        ctx.strokeStyle = "#93c5fd";
-        ctx.lineWidth = 8;
-        ctx.stroke();
-
-        // Label Biru Muda "HARGA SPESIAL"
-        ctx.fillStyle = "#2563eb";
-        ctx.beginPath();
-        ctx.roundRect(290, 2120, 350, 280, 20);
-        ctx.fill();
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "700 48px 'Outfit', sans-serif";
-        ctx.fillText("HARGA", 465, 2235);
-        ctx.fillText("SPESIAL", 465, 2315);
-
-        // Nilai Harga Spesial / Diskon Besar
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "900 180px 'Outfit', sans-serif";
+        ctx.font = "900 185px 'Outfit', sans-serif";
         ctx.textAlign = "left";
-        ctx.fillText(hargaDiskon, 700, 2300);
-
-        // 7. Footer Fitur Toko & Kontak di Bagian Bawah
-        ctx.fillStyle = "#f8fafc";
-        ctx.fillRect(150, 2750, 2180, 550);
-        ctx.strokeStyle = "#e2e8f0";
-        ctx.lineWidth = 4;
-        ctx.strokeRect(150, 2750, 2180, 550);
-
-        ctx.fillStyle = "#1e3a8a";
-        ctx.fillRect(150, 3120, 2180, 180);
-
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "600 40px 'Outfit', sans-serif";
-        ctx.textAlign = "center";
-        ctx.fillText("📷 @ufo.kebonsari      📘 UFO Kebonsari Malang      📞 0812-3456-7890", canvas.width / 2, 3230);
+        ctx.fillText(hargaDiskon, 700, 2305);
 
         tutupPopup();
 
-        // Render Link Download
+        // Sediakan Tombol Download Hasil Render HD
         let imageURL = canvas.toDataURL("image/png", 1.0);
         let previewContainer = document.getElementById("previewArea");
         previewContainer.innerHTML = `
             <div style="background:#1f2937; padding:20px; border-radius:14px; display:inline-block; border:1px solid #374151;">
-                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Poster Sesuai Contoh Berhasil Dibuat!</p>
-                <a href="${imageURL}" download="Clearance_A4_${brand}_${Date.now()}.png" style="display:inline-block; padding:12px 24px; background:#10b981; color:#fff; font-weight:800; text-decoration:none; border-radius:8px;">
+                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Poster Sesuai Master Berhasil Dibuat!</p>
+                <a href="${imageURL}" download="Poster_Clearance_${brand}_${Date.now()}.png" style="display:inline-block; padding:12px 24px; background:#10b981; color:#fff; font-weight:800; text-decoration:none; border-radius:8px;">
                     📥 Download Poster A4 (HD)
                 </a>
             </div>
         `;
-    };
-
-    logoImg.onerror = function() {
-        tutupPopup();
-        alert("Gagal memuat logo brand dari GitHub. Periksa kembali link RAW repository Anda.");
-    };
+    }
 }
 
 function showPopup(pesan) {
