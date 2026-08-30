@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Generator Price Tag Satuan UFO (Preset Logo & Auto QR)</title>
+<title>Generator Price Tag Satuan UFO (Format Presisi Word)</title>
 
 <!-- IMPORT FONT INTER -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box}
@@ -28,17 +28,16 @@ input:focus, textarea:focus, select:focus{border-color:#1558c0;box-shadow:0 0 0 
 button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:800;cursor:pointer}
 .primary{background:#0b4db8;color:#fff;box-shadow:0 4px 12px rgba(11,77,184,0.3)}
 .success{background:#1a8247;color:#fff}
-.danger{background:#d0021b;color:#fff}
 
 .preview-area{display:flex;justify-content:center;background:#7888a2;padding:20px;border-radius:14px}
 
-/* DESAIN PRICE TAG 1/4 A4 PERSIS SESUAI MASTER WORD */
+/* DESAIN TAG PRESISI SAMA PERSIS GAMBAR WORD */
 .tag-card{
   width:105mm;
   height:148.5mm;
   background:#ffffff !important;
   border:2px solid #000000 !important;
-  padding:10px 14px 12px;
+  padding:12px 14px 10px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
@@ -46,41 +45,44 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
   box-sizing:border-box;
 }
 
+/* HEADER AREA */
 .tag-header{display:flex;justify-content:space-between;align-items:flex-start}
-.brand-info{flex:1;padding-right:8px}
+.brand-info{flex:1;padding-right:6px}
 
-/* WADAH LOGO BRAND (PRESISI SEPERTI WORD) */
-.brand-logo-wrap{height:36px;display:flex;align-items:center;margin-bottom:2px}
-.brand-logo-img{max-height:36px;max-width:140px;object-fit:contain}
-.brand-name-text{font-size:26px;font-weight:900;text-transform:uppercase;color:#000;line-height:1}
+.brand-row{display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.brand-logo-img{height:38px;width:auto;object-fit:contain}
+.brand-name-text{font-size:32px;font-weight:900;text-transform:uppercase;color:#000;line-height:1}
 
-.model-code{font-size:22px;font-weight:900;margin:2px 0;letter-spacing:-0.5px;color:#000;line-height:1.1}
-.product-name{font-size:15px;font-weight:800;text-transform:uppercase;margin:4px 0 0;color:#000;line-height:1.2}
+.model-code{font-size:24px;font-weight:900;margin:2px 0 0;letter-spacing:-0.5px;color:#000;line-height:1}
+.product-name{font-size:15px;font-weight:800;text-transform:uppercase;margin:3px 0 0;color:#000;line-height:1.1}
 .qr-box{width:75px;height:75px;object-fit:contain}
 
-/* FITUR BULLET ➢ PRESISI WORD */
-.spec-list{list-style:none;padding:0;margin:8px 0;font-size:11.5px;font-weight:800;line-height:1.4;color:#000}
-.spec-list li{display:flex;align-items:flex-start;gap:6px}
+/* LIST SPESIFIKASI BULLET ➢ */
+.spec-list{list-style:none;padding:0;margin:10px 0 4px;font-size:11.5px;font-weight:800;line-height:1.35;color:#000}
+.spec-list li{display:flex;align-items:flex-start;gap:6px;margin-bottom:1px}
 .spec-list li::before{content:"➢";font-size:11px}
 
+/* SEKSI RETAIL PRICE & CICILAN */
 .price-section{border-top:2px solid #000;padding-top:6px;margin-top:4px}
-.row-retail{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
-.lbl-retail{font-size:16px;font-weight:900;color:#000}
-.val-retail{font-size:24px;font-weight:900;color:#000}
+.row-retail{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2px}
+.lbl-retail{font-size:16px;font-weight:800;color:#000}
+.val-retail{font-size:26px;font-weight:900;color:#000;letter-spacing:-0.5px}
 
-.row-cicilan{display:flex;justify-content:space-between;align-items:baseline;margin-top:2px}
-.lbl-cicilan{font-size:16px;font-weight:900;color:#000;text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#e60000}
-.val-cicilan{font-size:18px;font-weight:900;color:#000}
-.val-cicilan .red-val{color:#e60000;font-weight:900;font-size:22px}
+.row-cicilan{display:flex;justify-content:space-between;align-items:center;margin-top:1px}
+.lbl-cicilan{font-size:17px;font-weight:800;color:#000;text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#e60000}
+.val-cicilan{font-size:19px;font-weight:900;color:#000}
+.val-cicilan .red-val{color:#e60000;font-weight:900;font-size:23px}
 
-.special-section{border-top:2px solid #000;padding-top:6px;margin-top:6px}
+/* SEKSI SPECIAL PRICE */
+.special-section{border-top:2px solid #000;padding-top:4px;margin-top:6px}
 .special-header{display:flex;justify-content:space-between;align-items:center}
-.lbl-special{font-size:18px;font-weight:900;color:#000}
-.sub-special{font-size:9px;font-weight:800;color:#000}
-.val-special{font-size:48px;font-weight:900;color:#e60000;letter-spacing:-1.5px;margin-top:-4px;display:flex;align-items:baseline}
-.val-special .rp{font-size:22px;color:#000;font-weight:900;margin-right:3px}
+.lbl-special{font-size:17px;font-weight:900;color:#000}
+.sub-special{font-size:9.5px;font-weight:800;color:#000}
+.val-special{font-size:52px;font-weight:900;color:#e60000;letter-spacing:-2px;margin-top:-6px;line-height:1;display:flex;align-items:baseline}
+.val-special .rp{font-size:24px;color:#000;font-weight:900;margin-right:2px}
 
-.tag-footer{border-top:2px solid #000;padding-top:6px;margin-top:4px;display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:900;line-height:1.2}
+/* FOOTER AREA */
+.tag-footer{border-top:2px solid #000;padding-top:6px;margin-top:4px;display:flex;justify-content:space-between;align-items:flex-end;font-size:10px;font-weight:900;line-height:1.2}
 
 @media print{
   @page{
@@ -110,27 +112,24 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
 
 <div class="wrap">
   <div class="panel">
-    <h1>Generator Price Tag Satuan UFO</h1>
-    <p class="sub">Fitur lengkap: Pilih Preset Logo Brand, Auto QR Code, dan Database Penyimpanan Produk.</p>
+    <h1>Generator Price Tag Satuan UFO (Database Sheets)</h1>
+    <p class="sub">Hasil cetak presisi 100% sama dengan dokumen master Word.</p>
 
-    <!-- LOAD BARANG DARI STORAGE -->
+    <!-- LOAD DARI GOOGLE SHEETS -->
     <div class="save-box">
       <div style="flex:1;min-width:250px;">
-        <label style="color:#1a8247;">📋 Pilih Produk Tersimpan (Tinggal Ganti Harga):</label>
-        <select id="savedProductsSelect">
-          <option value="">-- Buat Produk Baru --</option>
+        <label style="color:#1a8247;">📊 Pilih Produk dari Google Sheets:</label>
+        <select id="sheetProductsSelect">
+          <option value="">Memuat data dari Google Sheets...</option>
         </select>
       </div>
-      <div style="display:flex;gap:8px;align-self:flex-end;">
-        <button class="success" onclick="saveProduct()">💾 Simpan / Update Produk</button>
-        <button class="danger" onclick="deleteProduct()">🗑️ Hapus</button>
-      </div>
+      <button class="success" onclick="fetchSheetData()">🔄 Refresh Data Sheets</button>
     </div>
 
     <!-- FORM INPUT -->
     <div class="grid-form">
       <div>
-        <label>Pilih Preset Logo Brand</label>
+        <label>Preset Logo Brand</label>
         <select id="presetLogoSelect">
           <option value="LG" selected>LG Electronics</option>
           <option value="SHARP">SHARP</option>
@@ -138,7 +137,7 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
           <option value="PANASONIC">PANASONIC</option>
           <option value="POLYTRON">POLYTRON</option>
           <option value="COSMOS">COSMOS</option>
-          <option value="CUSTOM_TEXT">Teks Biasa (Ketik Manual)</option>
+          <option value="CUSTOM_TEXT">Teks Biasa (Manual)</option>
         </select>
       </div>
       <div>
@@ -168,7 +167,7 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
         <input id="inSpecial" inputmode="numeric" value="4098000">
       </div>
       <div style="grid-column: span 2;">
-        <label>Fitur / Spesifikasi (Pisahkan dengan tanda koma)</label>
+        <label>Fitur / Spesifikasi (Pisahkan dengan koma)</label>
         <textarea id="inSpec" rows="2">DIRECT DRIVE 7KG, 6 MOTION DD, SMART DIAGNOSIS, INVERTER DIRECT DRIVE, QUICK WASH 30 MENIT, POWER INPUT 250 WATT, WARANTY 10 TAHUN MOTOR</textarea>
       </div>
 
@@ -195,7 +194,7 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
           <!-- HEADER: BRAND LOGO + QR -->
           <div class="tag-header">
             <div class="brand-info">
-              <div class="brand-logo-wrap" id="brandLogoWrap"></div>
+              <div class="brand-row" id="brandLogoWrap"></div>
               <div class="model-code outTipe">FB1207S6WB</div>
               <div class="product-name outNama">MESIN CUCI FRONT LOADING</div>
             </div>
@@ -244,9 +243,9 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
 <div id="printSingle" style="display:none;"></div>
 
 <script>
-const STORAGE_KEY = 'UFO_PRODUCT_DATABASE';
+// URL APPS SCRIPT ANDA
+const APPS_SCRIPT_URL = "TEMPELKAN_URL_WEB_APP_ANDA_DI_SINI";
 
-// LOGO PRESET SVG/ONLINE URL
 const LOGO_PRESETS = {
   LG: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/LG_logo_%282015%29.svg',
   SHARP: 'https://upload.wikimedia.org/wikipedia/commons/3/36/Sharp_logo.svg',
@@ -255,6 +254,8 @@ const LOGO_PRESETS = {
   POLYTRON: 'https://upload.wikimedia.org/wikipedia/commons/8/86/Polytron_logo.svg',
   COSMOS: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Cosmos_logo.svg'
 };
+
+let productsCache = [];
 
 function formatRupiah(num) {
   if(!num) return '0';
@@ -277,9 +278,12 @@ function updateTag() {
   const card = document.getElementById('singleCard');
   const brandWrap = card.querySelector('#brandLogoWrap');
 
-  // Render Preset Logo Gambar atau Teks
+  // Render Logo Gambar + Teks Nama Brand Sesuai Word
   if (LOGO_PRESETS[presetKey]) {
-    brandWrap.innerHTML = `<img class="brand-logo-img" src="${LOGO_PRESETS[presetKey]}" alt="${presetKey}">`;
+    brandWrap.innerHTML = `
+      <img class="brand-logo-img" src="${LOGO_PRESETS[presetKey]}" alt="${presetKey}">
+      <span class="brand-name-text">${brandText.toUpperCase()}</span>
+    `;
   } else {
     brandWrap.innerHTML = `<span class="brand-name-text">${brandText.toUpperCase()}</span>`;
   }
@@ -308,63 +312,45 @@ function updateTag() {
     }
   });
 
-  // Render QR Code Realtime
   const encodedText = encodeURIComponent(qrLink || "https://ufoelectronics.id");
   card.querySelector('.qrImage').src = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodedText;
 }
 
-// SIMPAN PRODUCT KE DROPDOWN
-function saveProduct() {
-  const tipe = document.getElementById('inTipe').value.trim();
-  if(!tipe) {
-    alert('Kode Tipe/Model tidak boleh kosong!');
-    return;
-  }
+function fetchSheetData() {
+  const select = document.getElementById('sheetProductsSelect');
+  select.innerHTML = '<option value="">Sedang mengambil data dari Google Sheets...</option>';
 
-  let db = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-  
-  db[tipe] = {
-    preset: document.getElementById('presetLogoSelect').value,
-    brand: document.getElementById('inBrand').value,
-    tipe: tipe,
-    nama: document.getElementById('inNama').value,
-    retail: document.getElementById('inRetail').value,
-    tenor: document.getElementById('inTenor').value,
-    special: document.getElementById('inSpecial').value,
-    spec: document.getElementById('inSpec').value,
-    qr: document.getElementById('inQR').value,
-    care: document.getElementById('inCare').value
-  };
-
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
-  loadSavedDropdown();
-  document.getElementById('savedProductsSelect').value = tipe;
-  alert('Produk ' + tipe + ' berhasil disimpan!');
+  fetch(APPS_SCRIPT_URL)
+    .then(res => res.json())
+    .then(data => {
+      productsCache = data;
+      select.innerHTML = '<option value="">-- Pilih Produk dari Sheets --</option>';
+      data.forEach((p, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.innerText = `[${p.brand}] ${p.tipe} - ${p.nama}`;
+        select.appendChild(opt);
+      });
+    })
+    .catch(err => {
+      select.innerHTML = '<option value="">Gagal mengambil data dari Google Sheets</option>';
+      console.error(err);
+    });
 }
 
-function loadSavedDropdown() {
-  const select = document.getElementById('savedProductsSelect');
-  const db = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-  
-  select.innerHTML = '<option value="">-- Buat Produk Baru --</option>';
-  for(let key in db) {
-    const p = db[key];
-    const opt = document.createElement('option');
-    opt.value = key;
-    opt.innerText = `[${p.brand}] ${p.tipe} - ${p.nama}`;
-    select.appendChild(opt);
-  }
-}
+document.getElementById('sheetProductsSelect').addEventListener('change', (e) => {
+  const idx = e.target.value;
+  if(idx === '') return;
 
-document.getElementById('savedProductsSelect').addEventListener('change', (e) => {
-  const key = e.target.value;
-  if(!key) return;
-
-  const db = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-  const p = db[key];
-
+  const p = productsCache[idx];
   if(p) {
-    document.getElementById('presetLogoSelect').value = p.preset || 'LG';
+    const brandUpper = (p.brand || '').toUpperCase();
+    if(LOGO_PRESETS[brandUpper]) {
+      document.getElementById('presetLogoSelect').value = brandUpper;
+    } else {
+      document.getElementById('presetLogoSelect').value = 'CUSTOM_TEXT';
+    }
+
     document.getElementById('inBrand').value = p.brand;
     document.getElementById('inTipe').value = p.tipe;
     document.getElementById('inNama').value = p.nama;
@@ -372,28 +358,12 @@ document.getElementById('savedProductsSelect').addEventListener('change', (e) =>
     document.getElementById('inTenor').value = p.tenor;
     document.getElementById('inSpecial').value = p.special;
     document.getElementById('inSpec').value = p.spec;
-    document.getElementById('inQR').value = p.qr || 'https://ufoelectronics.id';
-    document.getElementById('inCare').value = p.care || 'UFO CARE+ RUBY RP 88.000';
+    document.getElementById('inQR').value = p.qr;
+    document.getElementById('inCare').value = p.care;
 
     updateTag();
   }
 });
-
-function deleteProduct() {
-  const key = document.getElementById('savedProductsSelect').value;
-  if(!key) {
-    alert('Pilih produk dari dropdown terlebih dahulu.');
-    return;
-  }
-
-  if(confirm('Hapus produk ' + key + '?')) {
-    let db = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    delete db[key];
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
-    loadSavedDropdown();
-    alert('Produk berhasil dihapus.');
-  }
-}
 
 function printSingle() {
   updateTag();
@@ -410,7 +380,7 @@ document.querySelectorAll('input, textarea, select').forEach(el => {
   el.addEventListener('change', updateTag);
 });
 
-loadSavedDropdown();
+fetchSheetData();
 updateTag();
 </script>
 </body>
