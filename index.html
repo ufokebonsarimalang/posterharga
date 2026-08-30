@@ -139,11 +139,10 @@ function generatePosterTemplate() {
         alert("Gagal memuat 'template.png'. Pastikan file template sudah ada di root GitHub.");
     };
 
-    // 3. Timpa Harga Lama dan Tulis Harga Baru
-    function lanjutkanTutupHarga() {
-        // -- Tutup & Ganti Harga Normal --
+function lanjutkanTutupHarga() {
+        // -- Tutup & Ganti Harga Normal (Kotak putih dinaikkan dan dilebarkan ke atas) --
         ctx.fillStyle = "#ffffff";
-        ctx.fillRect(680, 1180, 1450, 310);
+        ctx.fillRect(660, 1100, 1480, 420);
 
         ctx.fillStyle = "#0f172a";
         ctx.font = "800 115px 'Outfit', sans-serif";
@@ -158,9 +157,9 @@ function generatePosterTemplate() {
         ctx.lineTo(2100, 1335);
         ctx.stroke();
 
-        // -- Tutup & Ganti Harga Spesial / Clearance --
+        // -- Tutup & Ganti Harga Spesial / Clearance (Kotak biru dinaikkan dan dilebarkan ke atas) --
         ctx.fillStyle = "#1e3a8a";
-        ctx.fillRect(280, 2090, 1920, 310);
+        ctx.fillRect(260, 1980, 1960, 420);
 
         ctx.fillStyle = "#ffffff";
         ctx.font = "900 185px 'Outfit', sans-serif";
@@ -174,14 +173,13 @@ function generatePosterTemplate() {
         let previewContainer = document.getElementById("previewArea");
         previewContainer.innerHTML = `
             <div style="background:#1f2937; padding:20px; border-radius:14px; display:inline-block; border:1px solid #374151;">
-                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Logo & Harga Berhasil Diperbarui!</p>
+                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Sempurna! Harga Lama Tertutup Bersih.</p>
                 <a href="${imageURL}" download="Poster_Clearance_${brand}_${Date.now()}.png" style="display:inline-block; padding:12px 24px; background:#10b981; color:#fff; font-weight:800; text-decoration:none; border-radius:8px;">
                     📥 Download Poster A4 (HD)
                 </a>
             </div>
         `;
     }
-}
 
 function showPopup(pesan) {
     let p = document.getElementById("popup");
