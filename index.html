@@ -92,8 +92,9 @@ function formatRupiahInput(el) {
 
 function generatePosterTemplate() {
     let brand = document.getElementById("genBrand").value;
-    let hargaAwal = document.getElementById("genHargaAwal").value || "Rp 0";
-    let hargaDiskon = document.getElementById("genHargaDiskon").value || "Rp 0";
+    // Hapus awalan "Rp " agar angka pas berdampingan dengan tulisan "RP" di template
+    let hargaAwal = (document.getElementById("genHargaAwal").value || "0").replace("Rp ", "");
+    let hargaDiskon = (document.getElementById("genHargaDiskon").value || "0").replace("Rp ", "");
 
     showPopup("Sedang merender poster HD...");
 
@@ -119,7 +120,6 @@ function generatePosterTemplate() {
         logoBrand.onload = function() {
             let bWidth = 650;
             let bHeight = (logoBrand.height / logoBrand.width) * bWidth;
-            // Posisi pas di area kanan atas template
             ctx.drawImage(logoBrand, canvas.width - bWidth - 120, 70, bWidth, bHeight);
             
             cetakHargaMaster();
@@ -135,27 +135,27 @@ function generatePosterTemplate() {
         alert("Gagal memuat 'template.png'. Pastikan file gambar master kosongan sudah dinamai 'template.png' dan di-upload di root GitHub.");
     };
 
-    // 3. Cetak Harga di Atas Kotak Kosong Template (Koordinat Presisi Baru)
+    // 3. Cetak Harga dengan Koordinat Presisi di Kotak Putih Template
     function cetakHargaMaster() {
-        // -- Cetak Harga Normal di Kotak Tengah --
+        // -- Cetak Harga Normal di Kotak Putih Tengah --
         ctx.fillStyle = "#0f172a";
         ctx.font = "800 110px 'Outfit', sans-serif";
         ctx.textAlign = "left";
-        ctx.fillText(hargaAwal, 550, 1385);
+        ctx.fillText(hargaAwal, 680, 1585); // Koordinat Y diturunkan ke tengah kotak putih tengah
 
-        // Garis coret merah menyilang Harga Normal (panjang & posisi disesuaikan)
+        // Garis coret merah menyilang Harga Normal
         ctx.strokeStyle = "#dc2626";
         ctx.lineWidth = 14;
         ctx.beginPath();
-        ctx.moveTo(520, 1350);
-        ctx.lineTo(2150, 1350);
+        ctx.moveTo(650, 1550);
+        ctx.lineTo(2150, 1550);
         ctx.stroke();
 
-        // -- Cetak Harga Spesial di Kotak Bawah --
+        // -- Cetak Harga Spesial di Kotak Putih Bawah --
         ctx.fillStyle = "#1e3a8a";
         ctx.font = "900 180px 'Outfit', sans-serif";
         ctx.textAlign = "left";
-        ctx.fillText(hargaDiskon, 530, 2320);
+        ctx.fillText(hargaDiskon, 650, 2750); // Koordinat Y diturunkan ke tengah kotak putih bawah
 
         tutupPopup();
 
