@@ -119,6 +119,7 @@ function generatePosterTemplate() {
         logoBrand.onload = function() {
             let bWidth = 650;
             let bHeight = (logoBrand.height / logoBrand.width) * bWidth;
+            // Posisi pas di area kanan atas template
             ctx.drawImage(logoBrand, canvas.width - bWidth - 120, 70, bWidth, bHeight);
             
             cetakHargaMaster();
@@ -134,27 +135,27 @@ function generatePosterTemplate() {
         alert("Gagal memuat 'template.png'. Pastikan file gambar master kosongan sudah dinamai 'template.png' dan di-upload di root GitHub.");
     };
 
-    // 3. Cetak Harga di Atas Kotak Kosong Template
+    // 3. Cetak Harga di Atas Kotak Kosong Template (Koordinat Presisi Baru)
     function cetakHargaMaster() {
         // -- Cetak Harga Normal di Kotak Tengah --
         ctx.fillStyle = "#0f172a";
-        ctx.font = "800 115px 'Outfit', sans-serif";
+        ctx.font = "800 110px 'Outfit', sans-serif";
         ctx.textAlign = "left";
-        ctx.fillText(hargaAwal, 750, 1370);
+        ctx.fillText(hargaAwal, 550, 1385);
 
-        // Garis coret merah menyilang Harga Normal
+        // Garis coret merah menyilang Harga Normal (panjang & posisi disesuaikan)
         ctx.strokeStyle = "#dc2626";
         ctx.lineWidth = 14;
         ctx.beginPath();
-        ctx.moveTo(720, 1335);
-        ctx.lineTo(2100, 1335);
+        ctx.moveTo(520, 1350);
+        ctx.lineTo(2150, 1350);
         ctx.stroke();
 
         // -- Cetak Harga Spesial di Kotak Bawah --
         ctx.fillStyle = "#1e3a8a";
-        ctx.font = "900 185px 'Outfit', sans-serif";
+        ctx.font = "900 180px 'Outfit', sans-serif";
         ctx.textAlign = "left";
-        ctx.fillText(hargaDiskon, 700, 2305);
+        ctx.fillText(hargaDiskon, 530, 2320);
 
         tutupPopup();
 
@@ -163,7 +164,7 @@ function generatePosterTemplate() {
         let previewContainer = document.getElementById("previewArea");
         previewContainer.innerHTML = `
             <div style="background:#1f2937; padding:20px; border-radius:14px; display:inline-block; border:1px solid #374151;">
-                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Poster Master Berhasil Dibuat!</p>
+                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Poster Sempurna & Siap Cetak!</p>
                 <a href="${imageURL}" download="Poster_Clearance_${brand}_${Date.now()}.png" style="display:inline-block; padding:12px 24px; background:#10b981; color:#fff; font-weight:800; text-decoration:none; border-radius:8px;">
                     📥 Download Poster A4 (HD)
                 </a>
@@ -171,7 +172,6 @@ function generatePosterTemplate() {
         `;
     }
 }
-
 function showPopup(pesan) {
     let p = document.getElementById("popup");
     if(!p) {
