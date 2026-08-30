@@ -31,7 +31,7 @@ canvas{display:block;width:100%;height:auto}
 <div class="wrap">
   <div class="panel">
     <h1>Generator Harga UFO</h1>
-    <p class="sub">Pastikan file <b>template.jpg</b> berada di folder yang sama dengan file HTML di GitHub.</p>
+    <p class="sub">Posisi angka harga normal dan spesial sudah disesuaikan agar tepat berada di dalam kolomnya masing-masing.</p>
 
     <div class="grid">
       <div>
@@ -75,7 +75,7 @@ const ctx = canvas.getContext('2d');
 const templateImg = new Image();
 let uploadedLogo = null;
 
-// Memuat template dari file gambar yang di-upload bersamaan di folder GitHub
+// Memuat file template.jpg secara berdampingan
 templateImg.src = 'template.jpg';
 templateImg.onload = () => {
   drawCanvas();
@@ -174,19 +174,17 @@ function drawCanvas() {
     }
   }
 
-  // Ukuran font harga besar, tebal, dan pas di tengah kotak putih
-  const fontSize = 95;
-  const normX = w * 0.64; 
-  const normY = h * 0.555; 
-  const specX = w * 0.64; 
-  const specY = h * 0.775; 
+  const fontSize = 85;
 
-  // 2. RENDER HARGA NORMAL
+  // 2. RENDER HARGA NORMAL (Koreksi Posisi Vertikal & Horizontal)
   const normalVal = formatRupiah(normalInput.value);
   if(normalVal) {
     ctx.font = '900 ' + fontSize + 'px Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
+
+    const normX = w * 0.60; // Posisi horizontal di tengah kolom atas
+    const normY = h * 0.525; // Posisi vertikal pas di tengah kotak normal
 
     ctx.shadowColor = 'rgba(0, 0, 0, 0.25)';
     ctx.shadowBlur = 6;
@@ -210,14 +208,17 @@ function drawCanvas() {
     ctx.stroke();
   }
 
-  // 3. RENDER HARGA SPESIAL
+  // 3. RENDER HARGA SPESIAL (Koreksi Posisi Turun ke Kotak Bawah)
   const specialVal = formatRupiah(specialInput.value);
   if(specialVal) {
-    ctx.font = '900 ' + (fontSize + 15) + 'px Arial, sans-serif';
+    ctx.font = '900 ' + (fontSize + 10) + 'px Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    let gradient = ctx.createLinearGradient(0, specY - 50, 0, specY + 50);
+    const specX = w * 0.60; // Posisi horizontal di tengah kolom bawah
+    const specY = h * 0.745; // Posisi vertikal pas di dalam kotak putih harga spesial
+
+    let gradient = ctx.createLinearGradient(0, specY - 45, 0, specY + 45);
     gradient.addColorStop(0, '#ff4d4d');
     gradient.addColorStop(1, '#b30000');
 
