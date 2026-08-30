@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Generator Harga UFO Electronics - Custom Posisi</title>
+<title>Generator Harga UFO Electronics Multi-Template</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#eef3fb;color:#102a5c}
@@ -13,8 +13,8 @@ h1{margin:0 0 6px;font-size:28px}
 .panel{background:white;border-radius:18px;padding:18px;box-shadow:0 8px 30px #0001;margin-bottom:20px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
 label{font-weight:700;font-size:14px;display:block;margin-bottom:7px}
-input{width:100%;padding:11px 14px;border:1px solid #ccd6e8;border-radius:10px;font-size:16px;outline:none}
-input:focus{border-color:#1558c0;box-shadow:0 0 0 3px #1558c015}
+input, select{width:100%;padding:11px 14px;border:1px solid #ccd6e8;border-radius:10px;font-size:16px;outline:none;background:#fff;color:#102a5c}
+input:focus, select:focus{border-color:#1558c0;box-shadow:0 0 0 3px #1558c015}
 .pos-box{background:#f4f7fc;padding:12px;border-radius:12px;margin-top:10px;border:1px solid #d8e2f3}
 .pos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
@@ -24,15 +24,24 @@ button{border:0;border-radius:10px;padding:13px 18px;font-size:16px;font-weight:
 .preview{display:flex;justify-content:center}
 .canvas-wrap{width:min(100%,600px);background:#ddd;border-radius:14px;overflow:hidden;box-shadow:0 10px 35px #0002}
 canvas{display:block;width:100%;height:auto}
-.hint{font-size:13px;color:#69758a;margin-top:10px}
 @media(max-width:750px){.grid,.pos-grid{grid-template-columns:1fr}.wrap{padding:12px}h1{font-size:23px}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="panel">
-    <h1>Generator Harga UFO (Atur Posisi Sendiri)</h1>
-    <p class="sub">Ubah angka posisi X (geser kiri-kanan) dan Y (geser atas-bawah) di bawah ini agar pas di kotak template Anda.</p>
+    <h1>Generator Harga UFO (Multi Template)</h1>
+    <p class="sub">Pilih jenis promo/template, lalu atur angka dan posisinya agar pas di kotak template.</p>
+
+    <!-- PILIHAN TEMPLATE PROMO -->
+    <div style="margin-bottom:14px;">
+      <label style="color:#0b4db8;font-size:16px;">🎯 Pilih Jenis Promo / Template:</label>
+      <select id="templateSelect">
+        <option value="clearance">Clearance Sale</option>
+        <option value="promo_reguler">Promo Reguler</option>
+        <option value="cashback">Promo Cashback</option>
+      </select>
+    </div>
 
     <div class="grid">
       <div>
@@ -51,23 +60,23 @@ canvas{display:block;width:100%;height:auto}
 
     <!-- PANEL PENGATURAN POSISI MANUAL -->
     <div class="pos-box">
-      <label style="color:#0b4db8;margin-bottom:10px;">⚙️ Pengaturan Koordinat Angka (Bisa diubah langsung):</label>
+      <label style="color:#0b4db8;margin-bottom:10px;">⚙️ Pengaturan Koordinat Angka (Otomatis berubah per template):</label>
       <div class="pos-grid">
         <div>
           <label style="font-size:12px;">Posisi X (Normal)</label>
-          <input id="normX" type="number" value="600">
+          <input id="normX" type="number">
         </div>
         <div>
           <label style="font-size:12px;">Posisi Y (Normal)</label>
-          <input id="normY" type="number" value="780">
+          <input id="normY" type="number">
         </div>
         <div>
           <label style="font-size:12px;">Posisi X (Spesial)</label>
-          <input id="specX" type="number" value="600">
+          <input id="specX" type="number">
         </div>
         <div>
           <label style="font-size:12px;">Posisi Y (Spesial)</label>
-          <input id="specY" type="number" value="1110">
+          <input id="specY" type="number">
         </div>
       </div>
     </div>
@@ -79,7 +88,7 @@ canvas{display:block;width:100%;height:auto}
 
     <div class="buttons">
       <button class="primary" id="download">⬇ Simpan Gambar (PNG)</button>
-      <button class="secondary" id="clear">Bersihkan</button>
+      <button class="secondary" id="clear">Bersihkan Form</button>
     </div>
   </div>
 
@@ -98,12 +107,26 @@ const ctx = canvas.getContext('2d');
 const templateImg = new Image();
 let uploadedLogo = null;
 
-// Memuat file template.jpg dari folder yang sama di GitHub
-templateImg.src = 'template.jpg';
-templateImg.onload = () => {
-  drawCanvas();
+// DATA SETTINGAN TIAP TEMPLATE (Ganti nama file & koordinat sesuai gambar Anda)
+const templatesData = {
+  clearance: {
+    src: 'template-clearance.jpg',
+    normX: 600, normY: 780,
+    specX: 600, specY: 1110
+  },
+  promo_reguler: {
+    src: 'template-promo.jpg',
+    normX: 500, normY: 650,
+    specX: 500, specY: 950
+  },
+  cashback: {
+    src: 'template-cashback.jpg',
+    normX: 550, normY: 720,
+    specX: 550, specY: 1020
+  }
 };
 
+const templateSelect = document.getElementById('templateSelect');
 const brandInput = document.getElementById('brand');
 const normalInput = document.getElementById('normal');
 const specialInput = document.getElementById('special');
@@ -114,7 +137,29 @@ const normYInput = document.getElementById('normY');
 const specXInput = document.getElementById('specX');
 const specYInput = document.getElementById('specY');
 
-// Trigger ulang gambar saat ada input diketik atau koordinat diganti
+// Fungsi Ganti Template
+function switchTemplate(key) {
+  const data = templatesData[key];
+  normXInput.value = data.normX;
+  normYInput.value = data.normY;
+  specXInput.value = data.specX;
+  specYInput.value = data.specY;
+  
+  // Memuat gambar template yang dipilih
+  templateImg.src = data.src;
+}
+
+// Event saat dropdown template diubah
+templateSelect.addEventListener('change', (e) => {
+  switchTemplate(e.target.value);
+});
+
+// Event saat gambar template selesai dimuat
+templateImg.onload = () => {
+  drawCanvas();
+};
+
+// Event input diketik atau koordinat diganti
 [brandInput, normalInput, specialInput, normXInput, normYInput, specXInput, specYInput].forEach(input => {
   input.addEventListener('input', drawCanvas);
 });
@@ -149,7 +194,7 @@ document.getElementById('clear').addEventListener('click', () => {
 
 document.getElementById('download').addEventListener('click', () => {
   const link = document.createElement('a');
-  link.download = (brandInput.value || 'ufo-clearance-sale') + '.png';
+  link.download = (brandInput.value || 'ufo-promo') + '.png';
   link.href = canvas.toDataURL('image/png');
   link.click();
 });
@@ -173,7 +218,7 @@ function drawCanvas() {
   const w = canvas.width;
   const h = canvas.height;
 
-  // 1. LOGO BRAND DI KANAN ATAS
+  // 1. LOGO BRAND
   if (uploadedLogo) {
     const targetW = w * 0.30;
     const targetH = h * 0.12;
@@ -205,13 +250,12 @@ function drawCanvas() {
 
   const fontSize = 85;
 
-  // Ambil nilai koordinat dari kotak input angka di layar
   const normX = Number(normXInput.value);
   const normY = Number(normYInput.value);
   const specX = Number(specXInput.value);
   const specY = Number(specYInput.value);
 
-  // 2. RENDER HARGA NORMAL
+  // 2. HARGA NORMAL
   const normalVal = formatRupiah(normalInput.value);
   if(normalVal) {
     ctx.font = '900 ' + fontSize + 'px Arial, sans-serif';
@@ -240,7 +284,7 @@ function drawCanvas() {
     ctx.stroke();
   }
 
-  // 3. RENDER HARGA SPESIAL
+  // 3. HARGA SPESIAL
   const specialVal = formatRupiah(specialInput.value);
   if(specialVal) {
     ctx.font = '900 ' + (fontSize + 10) + 'px Arial, sans-serif';
@@ -263,6 +307,9 @@ function drawCanvas() {
     ctx.shadowBlur = 0;
   }
 }
+
+// Inisialisasi awal saat halaman dibuka
+switchTemplate('clearance');
 </script>
 </body>
 </html>
