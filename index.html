@@ -48,19 +48,19 @@ canvas{display:block;width:100%;height:auto}
 <div class="wrap">
   <div class="panel">
     <h1>Generator Price Tag UFO</h1>
-    <p class="sub">Pilih jenis promo di bawah. Kolom input & pengaturan akan menyesuaikan jenis template secara otomatis.</p>
+    <p class="sub">Pilih jenis template di bawah. Input dan posisi angka akan menyesuaikan gambar secara otomatis.</p>
 
     <!-- PILIHAN TEMPLATE -->
     <div style="margin-bottom:16px;">
       <label style="color:#0b4db8;font-size:16px;">🎯 Pilih Jenis Promo / Template:</label>
       <select id="templateSelect">
-        <option value="standar" selected>Template Standar (Brand, Tipe & Harga)</option>
-        <option value="clearance">Template Clearance Sale (Harga Coret & Harga Spesial)</option>
+        <option value="clearance">Template Clearance Sale (Harga Normal & Spesial)</option>
+        <option value="standar" selected>Template Standar UFO (Brand, Tipe & Harga)</option>
         <option value="cashback">Template Promo Cashback</option>
       </select>
     </div>
 
-    <!-- 1. FORM INPUT KELOMPOK PROMO STANDAR & CASHBACK -->
+    <!-- FORM INPUT A: STANDAR & CASHBACK -->
     <div id="formStandar" class="grid">
       <div>
         <label>Nama Brand</label>
@@ -80,14 +80,14 @@ canvas{display:block;width:100%;height:auto}
       </div>
     </div>
 
-    <!-- 2. FORM INPUT KHUSUS CLEARANCE SALE -->
+    <!-- FORM INPUT B: KHUSUS CLEARANCE SALE -->
     <div id="formClearance" class="grid hidden">
       <div>
-        <label>Nama Brand (Teks/Opsional)</label>
+        <label>Nama Brand (Teks / Opsional)</label>
         <input id="clearanceBrand" placeholder="Contoh: SHARP" autocomplete="off">
       </div>
       <div>
-        <label>Harga Normal (Dicoret)</label>
+        <label>Harga Normal</label>
         <input id="normalInput" inputmode="numeric" placeholder="Contoh: 13998000">
       </div>
       <div>
@@ -96,15 +96,15 @@ canvas{display:block;width:100%;height:auto}
       </div>
     </div>
 
-    <!-- PANEL PENGATURAN POSISI & FONT -->
+    <!-- PENGATURAN POSISI & FONT -->
     <div class="pos-box">
 
-      <!-- CONTROL GROUP A: PROMO STANDAR & CASHBACK -->
+      <!-- KONTROL A: STANDAR & CASHBACK -->
       <div id="ctrlStandar">
         <div class="pos-section">
           <div class="pos-title">🏷️ Nama Brand</div>
           <div class="pos-grid">
-            <div><label style="font-size:12px;">Font Size</label><input id="brandSize" type="number" value="28"></div>
+            <div><label style="font-size:12px;">Ukuran Font</label><input id="brandSize" type="number" value="28"></div>
             <div><label style="font-size:12px;">Posisi X</label><input id="brandX" type="number" value="55"></div>
             <div><label style="font-size:12px;">Posisi Y</label><input id="brandY" type="number" value="170"></div>
           </div>
@@ -113,7 +113,7 @@ canvas{display:block;width:100%;height:auto}
         <div class="pos-section">
           <div class="pos-title">📱 Tipe / Model</div>
           <div class="pos-grid">
-            <div><label style="font-size:12px;">Font Size</label><input id="tipeSize" type="number" value="20"></div>
+            <div><label style="font-size:12px;">Ukuran Font</label><input id="tipeSize" type="number" value="20"></div>
             <div><label style="font-size:12px;">Posisi X</label><input id="tipeX" type="number" value="55"></div>
             <div><label style="font-size:12px;">Posisi Y</label><input id="tipeY" type="number" value="210"></div>
           </div>
@@ -122,7 +122,7 @@ canvas{display:block;width:100%;height:auto}
         <div class="pos-section">
           <div class="pos-title">💰 Teks Harga Promo</div>
           <div class="pos-grid">
-            <div><label style="font-size:12px;">Font Size</label><input id="hargaSize" type="number" value="48"></div>
+            <div><label style="font-size:12px;">Ukuran Font</label><input id="hargaSize" type="number" value="48"></div>
             <div><label style="font-size:12px;">Posisi X</label><input id="hargaX" type="number" value="140"></div>
             <div><label style="font-size:12px;">Posisi Y</label><input id="hargaY" type="number" value="420"></div>
           </div>
@@ -131,19 +131,19 @@ canvas{display:block;width:100%;height:auto}
         <div id="cashbackPosSection" class="pos-section hidden">
           <div class="pos-title" style="color:#d0021b;">🎁 Teks Cashback</div>
           <div class="pos-grid">
-            <div><label style="font-size:12px;">Font Size</label><input id="cbSize" type="number" value="32"></div>
+            <div><label style="font-size:12px;">Ukuran Font</label><input id="cbSize" type="number" value="32"></div>
             <div><label style="font-size:12px;">Posisi X</label><input id="cbX" type="number" value="140"></div>
             <div><label style="font-size:12px;">Posisi Y</label><input id="cbY" type="number" value="530"></div>
           </div>
         </div>
       </div>
 
-      <!-- CONTROL GROUP B: CLEARANCE SALE -->
+      <!-- KONTROL B: CLEARANCE SALE -->
       <div id="ctrlClearance" class="hidden">
         <div class="pos-section">
           <div class="pos-title">❌ Harga Normal (Dicoret)</div>
           <div class="pos-grid">
-            <div><label style="font-size:12px;">Font Size</label><input id="normSize" type="number" value="85"></div>
+            <div><label style="font-size:12px;">Ukuran Font</label><input id="normSize" type="number" value="85"></div>
             <div><label style="font-size:12px;">Posisi X</label><input id="normX" type="number" value="600"></div>
             <div><label style="font-size:12px;">Posisi Y</label><input id="normY" type="number" value="780"></div>
           </div>
@@ -152,7 +152,7 @@ canvas{display:block;width:100%;height:auto}
         <div class="pos-section">
           <div class="pos-title" style="color:#d0021b;">🔥 Harga Spesial</div>
           <div class="pos-grid">
-            <div><label style="font-size:12px;">Font Size</label><input id="specSize" type="number" value="95"></div>
+            <div><label style="font-size:12px;">Ukuran Font</label><input id="specSize" type="number" value="95"></div>
             <div><label style="font-size:12px;">Posisi X</label><input id="specX" type="number" value="600"></div>
             <div><label style="font-size:12px;">Posisi Y</label><input id="specY" type="number" value="1110"></div>
           </div>
@@ -183,16 +183,16 @@ const templateImg = new Image();
 
 document.fonts.ready.then(() => { drawCanvas(); });
 
-// FILE GAMBAR TEMPLATE SESUAI PILIHAN
+// KONFIGURASI GAMBAR & FILE PRESET
 const templatesData = {
-  standar: { src: 'template-ufo.jpg' },
-  clearance: { src: 'template-clearance.jpg' },
-  cashback: { src: 'template-cashback.jpg' }
+  clearance: { src: 'template.jpg' },        // File template clearance sale merah-kuning
+  standar: { src: 'template-ufo.jpg' },      // File template biru UFO
+  cashback: { src: 'template-cashback.jpg' } // File template promo cashback
 };
 
 const templateSelect = document.getElementById('templateSelect');
 
-// ELEMEN PROMO STANDAR
+// UI Form Standar
 const formStandar = document.getElementById('formStandar');
 const ctrlStandar = document.getElementById('ctrlStandar');
 const brandInput = document.getElementById('brandInput');
@@ -215,7 +215,7 @@ const cbSizeInput = document.getElementById('cbSize');
 const cbXInput = document.getElementById('cbX');
 const cbYInput = document.getElementById('cbY');
 
-// ELEMEN CLEARANCE SALE
+// UI Form Clearance Sale
 const formClearance = document.getElementById('formClearance');
 const ctrlClearance = document.getElementById('ctrlClearance');
 const clearanceBrand = document.getElementById('clearanceBrand');
@@ -229,7 +229,7 @@ const specXInput = document.getElementById('specX');
 const specYInput = document.getElementById('specY');
 
 function switchTemplate(key) {
-  // Sembunyikan/Tampilkan UI Form yang sesuai
+  // Ganti Tampilan Form & Pengaturan Sesuai Template Pilihan
   if (key === 'clearance') {
     formStandar.classList.add('hidden');
     ctrlStandar.classList.add('hidden');
@@ -256,7 +256,7 @@ function switchTemplate(key) {
 templateSelect.addEventListener('change', (e) => switchTemplate(e.target.value));
 templateImg.onload = () => drawCanvas();
 
-// Event Listener Otomatis untuk Semua Input
+// Render Ulang Otomatis Setiap Kali Input Diubah
 document.querySelectorAll('input').forEach(input => {
   input.addEventListener('input', drawCanvas);
 });
@@ -307,7 +307,7 @@ function drawCanvas() {
 
   const mode = templateSelect.value;
 
-  // --- RENDER 1: CLEARANCE SALE ---
+  // 1. CARA RENDER TEMPLATE CLEARANCE SALE
   if (mode === 'clearance') {
     const brandText = clearanceBrand.value.trim().toUpperCase();
     if(brandText) {
@@ -318,7 +318,7 @@ function drawCanvas() {
       ctx.fillText(brandText, canvas.width * 0.80, canvas.height * 0.09);
     }
 
-    // Harga Normal (Coret)
+    // Render Harga Normal (Dengan Garis Coret)
     const normalVal = formatRupiah(normalInput.value);
     if(normalVal) {
       const nSize = Number(normSizeInput.value);
@@ -328,8 +328,12 @@ function drawCanvas() {
       ctx.font = "900 " + nSize + "px 'Inter', sans-serif";
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
+
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+      ctx.shadowBlur = 4;
       ctx.fillStyle = '#2c3e50';
       ctx.fillText(normalVal, nX, nY);
+      ctx.shadowColor = 'transparent';
 
       // Garis Coret Merah
       const textW = ctx.measureText(normalVal).width;
@@ -341,7 +345,7 @@ function drawCanvas() {
       ctx.stroke();
     }
 
-    // Harga Spesial
+    // Render Harga Spesial
     const specialVal = formatRupiah(specialInput.value);
     if(specialVal) {
       const sSize = Number(specSizeInput.value);
@@ -366,9 +370,8 @@ function drawCanvas() {
       ctx.shadowColor = 'transparent';
     }
   } 
-  // --- RENDER 2: TEMPLATE STANDAR & CASHBACK ---
+  // 2. CARA RENDER TEMPLATE STANDAR & CASHBACK
   else {
-    // Brand
     const brandText = brandInput.value.trim().toUpperCase();
     if (brandText) {
       const bSize = Number(brandSizeInput.value);
@@ -381,7 +384,6 @@ function drawCanvas() {
       wrapText(ctx, brandText, bX, bY, canvas.width - bX - 40, bSize * 1.15);
     }
 
-    // Tipe
     const tipeText = tipeInput.value.trim().toUpperCase();
     if (tipeText) {
       const tSize = Number(tipeSizeInput.value);
@@ -394,7 +396,6 @@ function drawCanvas() {
       wrapText(ctx, tipeText, tX, tY, canvas.width - tX - 40, tSize * 1.25);
     }
 
-    // Harga
     const hargaVal = formatRupiah(hargaInput.value);
     if (hargaVal) {
       const hSize = Number(hargaSizeInput.value);
@@ -418,7 +419,6 @@ function drawCanvas() {
       ctx.shadowColor = 'transparent';
     }
 
-    // Cashback
     if (mode === 'cashback') {
       const cbVal = formatRupiah(cashbackInput.value);
       if (cbVal) {
@@ -435,7 +435,7 @@ function drawCanvas() {
   }
 }
 
-// Inisialisasi awal
+// Set Awal
 switchTemplate('standar');
 </script>
 </body>
