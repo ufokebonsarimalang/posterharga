@@ -3,15 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Generator Label Produk UFO (1/4 A4 Layout Grid)</title>
+<title>Generator Label Produk UFO (1/4 A4)</title>
 
 <!-- IMPORT FONT INTER -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
-<!-- SCRIPT OTOMATIS QR CODE -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 *{box-sizing:border-box}
@@ -22,81 +19,87 @@ h1{margin:0 0 6px;font-size:26px;font-weight:800}
 .panel{background:white;border-radius:18px;padding:18px;box-shadow:0 8px 30px #0001;margin-bottom:20px}
 .grid-form{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
 label{font-weight:700;font-size:13px;display:block;margin-bottom:6px;color:#102a5c}
-input, textarea, select{width:100%;padding:10px 12px;border:1px solid #ccd6e8;border-radius:8px;font-size:14px;outline:none;background:#fff;font-family:'Inter',sans-serif}
+input, textarea{width:100%;padding:10px 12px;border:1px solid #ccd6e8;border-radius:8px;font-size:14px;outline:none;background:#fff;font-family:'Inter',sans-serif}
 input:focus, textarea:focus{border-color:#1558c0;box-shadow:0 0 0 3px #1558c015}
 
 .buttons{display:flex;gap:10px;margin-top:15px}
 button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:800;cursor:pointer}
-.primary{background:#0b4db8;color:#fff}
-.secondary{background:#e8eef8;color:#123c78}
+.primary{background:#0b4db8;color:#fff;box-shadow:0 4px 12px rgba(11,77,184,0.3)}
 
-/* TAMPILAN PREVIEW DI LAYAR */
 .preview-area{display:flex;justify-content:center;background:#ccc;padding:20px;border-radius:14px}
 
-/* DESAIN TAG PRODUK (UKURAN RATIONALLY MATCHING ¼ A4) */
+/* DESAIN PRICE TAG PRODUK PERSIS SEPERTI GAMBAR */
 .tag-card{
   width:105mm;
-  height:148mm;
-  background:#fff;
-  border:2px solid #000;
-  padding:12px;
+  height:148.5mm;
+  background:#ffffff !important;
+  border:2.5px solid #000000 !important;
+  padding:10px 14px 12px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  color:#000;
+  color:#000000;
   box-sizing:border-box;
 }
 
-/* KELOMPOK HEADER: LOGO, BRAND, TIPE & QR */
-.tag-header{display:flex;justify-content:space-between;align-items:flex-start}
-.brand-info{flex:1;padding-right:8px}
-.brand-name{font-size:22px;font-weight:900;text-transform:uppercase;margin:0 0 2px;color:#000}
-.model-code{font-size:20px;font-weight:900;margin:0 0 4px;letter-spacing:-0.5px}
-.product-name{font-size:15px;font-weight:800;text-transform:uppercase;margin:0 0 8px}
-.qr-box{width:70px;height:70px}
+.tag-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.brand-info{flex:1;padding-right:6px}
+.brand-row{display:flex;align-items:center;gap:6px;margin-bottom:2px}
+.brand-logo-img{height:26px;width:auto;object-fit:contain}
+.brand-name{font-size:24px;font-weight:900;text-transform:uppercase;color:#000;letter-spacing:-0.5px}
+.model-code{font-size:21px;font-weight:900;margin:2px 0;letter-spacing:-0.5px;color:#000}
+.product-name{font-size:16px;font-weight:800;text-transform:uppercase;margin:0;color:#000}
+.qr-box{width:75px;height:75px;object-fit:contain}
 
-/* SPESIFIKASI BULLET */
-.spec-list{font-size:11px;font-weight:800;line-height:1.45;margin:0;padding-left:14px}
+/* LIST SPESIFIKASI BULLET CUSTOM (➢) */
+.spec-list{list-style:none;padding:0;margin:6px 0;font-size:11.5px;font-weight:800;line-height:1.45;color:#000}
+.spec-list li{display:flex;align-items:flex-start;gap:6px}
+.spec-list li::before{content:"➢";font-size:11px}
 
-/* HARGA RETAIL & CICILAN */
-.price-section{border-top:2px solid #000;padding-top:6px;margin-top:6px}
-.row-retail{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4px}
-.lbl-retail{font-size:14px;font-weight:800}
-.val-retail{font-size:20px;font-weight:900}
+/* RETAIL PRICE & CICILAN */
+.price-section{border-top:2px solid #000;padding-top:6px;margin-top:4px}
+.row-retail{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2px}
+.lbl-retail{font-size:17px;font-weight:800}
+.val-retail{font-size:24px;font-weight:900}
 
-.row-cicilan{display:flex;justify-content:space-between;align-items:center}
-.lbl-cicilan{font-size:14px;font-weight:800}
-.val-cicilan{font-size:15px;font-weight:900;color:#000}
-.val-cicilan span{color:#e60000;font-size:18px}
+.row-cicilan{display:flex;justify-content:space-between;align-items:center;margin-top:2px}
+.lbl-cicilan{font-size:17px;font-weight:800;text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#e60000}
+.val-cicilan{font-size:18px;font-weight:900}
+.val-cicilan span.red-text{color:#e60000;font-weight:900;font-size:22px}
 
-/* SPECIAL PRICE (HARGA UTAMA TEBAL) */
-.special-section{border-top:2px solid #000;padding-top:6px;margin-top:6px}
+/* SPECIAL PRICE (MERAH BESAR) */
+.special-section{border-top:2px solid #000;padding-top:4px;margin-top:6px}
 .special-header{display:flex;justify-content:space-between;align-items:center}
-.lbl-special{font-size:15px;font-weight:900}
-.sub-special{font-size:9px;font-weight:700}
-.val-special{font-size:38px;font-weight:900;color:#e60000;letter-spacing:-1px;margin-top:2px;display:flex;align-items:baseline}
-.val-special .rp{font-size:20px;color:#000;margin-right:4px}
+.lbl-special{font-size:18px;font-weight:900}
+.sub-special{font-size:9.5px;font-weight:800}
+.val-special{font-size:46px;font-weight:900;color:#e60000;letter-spacing:-1.5px;margin-top:-2px;display:flex;align-items:baseline}
+.val-special .rp{font-size:24px;color:#000;font-weight:900;margin-right:2px}
 
-/* FOOTER LOGO UFO CARE */
-.tag-footer{border-top:2px solid #000;padding-top:6px;margin-top:6px;display:flex;justify-content:space-between;font-size:9px;font-weight:800}
+/* FOOTER UFO CARE */
+.tag-footer{border-top:2px solid #000;padding-top:4px;margin-top:4px;display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:900;line-height:1.2}
 
-/* FORMAT CETAK A4 MULTI-PAGE (4 GRID DALAM 1 A4) */
+/* CSS KHUSUS AUTOMATIC 4 GRID A4 SAAT DICETAK */
 @media print{
-  body{background:white;color:black}
-  .wrap, .panel, h1, .sub, .grid-form, .buttons{display:none !important}
-  .preview-area{padding:0;background:white}
-  
   @page{
-    size:A4 portrait;
-    margin:0;
+    size: A4 portrait;
+    margin: 0mm;
   }
+  html, body{
+    width: 210mm;
+    height: 297mm;
+    background: #ffffff !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .wrap, .panel, h1, .sub, .grid-form, .buttons, .preview-area{display:none !important}
   
-  .print-grid{
-    display:grid;
-    grid-template-columns:105mm 105mm;
-    grid-template-rows:148mm 148mm;
-    width:210mm;
-    height:297mm;
+  #printArea{
+    display: grid !important;
+    grid-template-columns: 105mm 105mm;
+    grid-template-rows: 148.5mm 148.5mm;
+    width: 210mm;
+    height: 297mm;
+    background: #ffffff !important;
   }
 }
 </style>
@@ -105,8 +108,8 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
 
 <div class="wrap">
   <div class="panel">
-    <h1>Generator Label Produk (1/4 A4)</h1>
-    <p class="sub">Isi spesifikasi barang dan harga di bawah ini. Hasil cetak akan otomatis terbagi menjadi 4 bagian dalam kertas A4.</p>
+    <h1>Generator Label Produk UFO (1/4 A4)</h1>
+    <p class="sub">Isi detail produk di bawah ini. Saat Anda menekan tombol cetak, sistem akan otomatis memperbanyak menjadi 4 label pas dalam 1 lembar kertas A4.</p>
 
     <div class="grid-form">
       <div>
@@ -149,72 +152,64 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
     </div>
 
     <div class="buttons">
-      <button class="primary" onclick="window.print()">🖨️ Cetak ke Kertas A4 (4 Label)</button>
+      <button class="primary" onclick="print4Grid()">🖨️ Cetak ke Kertas A4 (4 Label)</button>
     </div>
   </div>
 
   <div class="panel">
     <div class="preview-area">
-      
-      <!-- STRUKTUR CARD PRICE TAG 1/4 A4 -->
-      <div class="tag-card">
+      <!-- TEMPLATE MODEL PREVIEW MONITOR -->
+      <div id="singleCard" class="tag-card">
         <div>
-          <!-- HEADER -->
           <div class="tag-header">
             <div class="brand-info">
-              <div class="brand-name" id="outBrand">LG</div>
-              <div class="model-code" id="outTipe">GNB202SQIR</div>
-              <div class="product-name" id="outNama">LEMARI ES 2 PINTU</div>
+              <div class="brand-row">
+                <span class="brand-name outBrand">LG</span>
+              </div>
+              <div class="model-code outTipe">GNB202SQIR</div>
+              <div class="product-name outNama">LEMARI ES 2 PINTU</div>
             </div>
-            <div id="qrcode" class="qr-box"></div>
+            <img class="qr-box qrImage" src="" alt="QR">
           </div>
-
-          <!-- LIST SPESIFIKASI -->
-          <ul class="spec-list" id="outSpec"></ul>
+          <ul class="spec-list outSpec"></ul>
         </div>
 
         <div>
-          <!-- RETAIL & CICILAN -->
           <div class="price-section">
             <div class="row-retail">
               <span class="lbl-retail">Retail Price</span>
-              <span class="val-retail" id="outRetail">Rp 3.598.000</span>
+              <span class="val-retail outRetail">Rp 3.598.000</span>
             </div>
             <div class="row-cicilan">
               <span class="lbl-cicilan">Cicilan 0%</span>
-              <span class="val-cicilan" id="outCicilan">Rp. <span id="outCicilanNominal">599.666</span> x <span id="outTenor">6</span></span>
+              <span class="val-cicilan">Rp. <span class="red-text outCicilanNominal">599.666</span> x <span class="outTenor">6</span></span>
             </div>
           </div>
 
-          <!-- SPECIAL PRICE -->
           <div class="special-section">
             <div class="special-header">
               <span class="lbl-special">Special Price</span>
               <span class="sub-special">*Cash / Debit/Credit Card Full Payment</span>
             </div>
             <div class="val-special">
-              <span class="rp">RP</span><span id="outSpecial">3.398.000</span>
+              <span class="rp">RP</span><span class="outSpecial">3.398.000</span>
             </div>
           </div>
 
-          <!-- FOOTER -->
           <div class="tag-footer">
             <span>HARGA BERLAKU<br>SESUAI KETENTUAN</span>
-            <span id="outCare" style="align-self:flex-end">UFO CARE+ RUBY RP 88.000</span>
+            <span class="outCare" style="align-self:flex-end">UFO CARE+ RUBY RP 88.000</span>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>
 
-<script>
-let qrcode = new QRCode(document.getElementById("qrcode"), {
-  width : 70,
-  height : 70
-});
+<!-- CONTAINER TERSEMBUNYI KHUSUS CETAK 4 GRID -->
+<div id="printArea" style="display:none;"></div>
 
+<script>
 function formatRupiah(num) {
   if(!num) return '0';
   const str = num.toString().replace(/\D/g, '');
@@ -232,23 +227,24 @@ function updateTag() {
   const qrLink = document.getElementById('inQR').value;
   const care = document.getElementById('inCare').value;
 
-  document.getElementById('outBrand').innerText = brand;
-  document.getElementById('outTipe').innerText = tipe;
-  document.getElementById('outNama').innerText = nama;
-  document.getElementById('outRetail').innerText = 'Rp ' + formatRupiah(retail);
+  const card = document.getElementById('singleCard');
+  card.querySelector('.outBrand').innerText = brand;
+  card.querySelector('.outTipe').innerText = tipe;
+  card.querySelector('.outNama').innerText = nama;
+  card.querySelector('.outRetail').innerText = 'Rp ' + formatRupiah(retail);
   
-  // Hitung Cicilan Otomatis dari Retail Price dibagi Tenor
+  // Hitung Otomatis Nominal Cicilan per Bulan
   const numRetail = Number(retail.replace(/\D/g, ''));
   const nominalCicilan = Math.round(numRetail / tenor);
-  document.getElementById('outCicilanNominal').innerText = formatRupiah(nominalCicilan);
-  document.getElementById('outTenor').innerText = tenor;
+  card.querySelector('.outCicilanNominal').innerText = formatRupiah(nominalCicilan);
+  card.querySelector('.outTenor').innerText = tenor;
 
-  document.getElementById('outSpecial').innerText = formatRupiah(special);
-  document.getElementById('outCare').innerText = care;
+  card.querySelector('.outSpecial').innerText = formatRupiah(special);
+  card.querySelector('.outCare').innerText = care;
 
-  // Render Spesifikasi Bullet
+  // Render List Spesifikasi dengan Bullet "➢"
   const specArr = specText.split(',');
-  const specUl = document.getElementById('outSpec');
+  const specUl = card.querySelector('.outSpec');
   specUl.innerHTML = '';
   specArr.forEach(item => {
     if(item.trim() !== ''){
@@ -258,8 +254,27 @@ function updateTag() {
     }
   });
 
-  // Update QR Code
-  qrcode.makeCode(qrLink || "https://ufoelectronics.id");
+  // Render QR Code Realtime
+  const encodedText = encodeURIComponent(qrLink || "https://ufoelectronics.id");
+  card.querySelector('.qrImage').src = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodedText;
+}
+
+// FUNGSI GANDA CARDS MENJADI 4 GRID PAS A4
+function print4Grid() {
+  updateTag();
+  const printArea = document.getElementById('printArea');
+  printArea.innerHTML = '';
+
+  const singleCardHtml = document.getElementById('singleCard').outerHTML;
+  
+  // Gandakan kartu menjadi 4 kotak pas untuk 1 kertas A4
+  for(let i = 0; i < 4; i++) {
+    printArea.innerHTML += singleCardHtml;
+  }
+
+  setTimeout(() => {
+    window.print();
+  }, 200);
 }
 
 document.querySelectorAll('input, textarea').forEach(el => {
