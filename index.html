@@ -136,26 +136,28 @@ function generatePosterTemplate() {
     };
 
     // 3. Cetak Harga Sesuai Posisi Kotak Putih Template Master
-    function cetakHargaMaster() {
-        // -- Cetak Harga Normal (Kotak Putih Tengah) --
+  function cetakHargaMaster() {
+        // -- Cetak Harga Normal di Kotak Putih Tengah --
+        // Kotak putih tengah berada di sekitar Y = 1380 hingga 1550
         ctx.fillStyle = "#0f172a";
-        ctx.font = "800 115px 'Outfit', sans-serif";
+        ctx.font = "800 110px 'Outfit', sans-serif";
         ctx.textAlign = "left";
-        ctx.fillText(hargaAwal, 680, 1370); // Posisi Y pas di tengah kotak putih tengah
+        ctx.fillText(hargaAwal, 680, 1470); // Posisi Y pas di tengah kotak putih tengah
 
         // Garis coret merah menyilang Harga Normal
         ctx.strokeStyle = "#dc2626";
         ctx.lineWidth = 14;
         ctx.beginPath();
-        ctx.moveTo(650, 1335);
-        ctx.lineTo(2150, 1335);
+        ctx.moveTo(650, 1435);
+        ctx.lineTo(2150, 1435);
         ctx.stroke();
 
-        // -- Cetak Harga Spesial (Kotak Putih Bawah) --
+        // -- Cetak Harga Spesial di Kotak Putih Bawah --
+        // Kotak putih bawah berada di sekitar Y = 2500 hingga 2800
         ctx.fillStyle = "#1e3a8a";
-        ctx.font = "900 185px 'Outfit', sans-serif";
+        ctx.font = "900 180px 'Outfit', sans-serif";
         ctx.textAlign = "left";
-        ctx.fillText(hargaDiskon, 680, 2305); // Posisi Y pas di tengah kotak putih bawah
+        ctx.fillText(hargaDiskon, 680, 2690); // Posisi Y pas di tengah kotak putih bawah
 
         tutupPopup();
 
@@ -164,14 +166,13 @@ function generatePosterTemplate() {
         let previewContainer = document.getElementById("previewArea");
         previewContainer.innerHTML = `
             <div style="background:#1f2937; padding:20px; border-radius:14px; display:inline-block; border:1px solid #374151;">
-                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Poster Sempurna & Siap Cetak!</p>
+                <p style="color:#34d399; font-weight:700; margin-bottom:10px;">✅ Posisi Harga Telah Disesuaikan!</p>
                 <a href="${imageURL}" download="Poster_Clearance_${brand}_${Date.now()}.png" style="display:inline-block; padding:12px 24px; background:#10b981; color:#fff; font-weight:800; text-decoration:none; border-radius:8px;">
                     📥 Download Poster A4 (HD)
                 </a>
             </div>
         `;
     }
-}
 
 function showPopup(pesan) {
     let p = document.getElementById("popup");
