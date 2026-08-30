@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Generator Label Produk UFO (1/4 A4)</title>
+<title>Generator Price Tag Satuan (1/4 A4)</title>
 
 <!-- IMPORT FONT INTER -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:'Inter',sans-serif;background:#eef3fb;color:#102a5c}
-.wrap{max-width:1200px;margin:auto;padding:22px}
+.wrap{max-width:900px;margin:auto;padding:22px}
 h1{margin:0 0 6px;font-size:26px;font-weight:800}
 .sub{margin:0 0 18px;color:#5b6b86}
 .panel{background:white;border-radius:18px;padding:18px;box-shadow:0 8px 30px #0001;margin-bottom:20px}
@@ -26,9 +26,9 @@ input:focus, textarea:focus{border-color:#1558c0;box-shadow:0 0 0 3px #1558c015}
 button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:800;cursor:pointer}
 .primary{background:#0b4db8;color:#fff;box-shadow:0 4px 12px rgba(11,77,184,0.3)}
 
-.preview-area{display:flex;justify-content:center;background:#ccc;padding:20px;border-radius:14px}
+.preview-area{display:flex;justify-content:center;background:#7888a2;padding:20px;border-radius:14px}
 
-/* DESAIN PRICE TAG PRODUK PERSIS SEPERTI GAMBAR */
+/* DESAIN PRICE TAG PAS UKURAN 1/4 A4 (105mm x 148.5mm) */
 .tag-card{
   width:105mm;
   height:148.5mm;
@@ -42,21 +42,17 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
   box-sizing:border-box;
 }
 
-.tag-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+.tag-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
 .brand-info{flex:1;padding-right:6px}
-.brand-row{display:flex;align-items:center;gap:6px;margin-bottom:2px}
-.brand-logo-img{height:26px;width:auto;object-fit:contain}
 .brand-name{font-size:24px;font-weight:900;text-transform:uppercase;color:#000;letter-spacing:-0.5px}
-.model-code{font-size:21px;font-weight:900;margin:2px 0;letter-spacing:-0.5px;color:#000}
-.product-name{font-size:16px;font-weight:800;text-transform:uppercase;margin:0;color:#000}
+.model-code{font-size:21px;font-weight:900;margin:1px 0;letter-spacing:-0.5px;color:#000}
+.product-name{font-size:15px;font-weight:800;text-transform:uppercase;margin:0;color:#000}
 .qr-box{width:75px;height:75px;object-fit:contain}
 
-/* LIST SPESIFIKASI BULLET CUSTOM (➢) */
 .spec-list{list-style:none;padding:0;margin:6px 0;font-size:11.5px;font-weight:800;line-height:1.45;color:#000}
 .spec-list li{display:flex;align-items:flex-start;gap:6px}
 .spec-list li::before{content:"➢";font-size:11px}
 
-/* RETAIL PRICE & CICILAN */
 .price-section{border-top:2px solid #000;padding-top:6px;margin-top:4px}
 .row-retail{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2px}
 .lbl-retail{font-size:17px;font-weight:800}
@@ -67,7 +63,6 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
 .val-cicilan{font-size:18px;font-weight:900}
 .val-cicilan span.red-text{color:#e60000;font-weight:900;font-size:22px}
 
-/* SPECIAL PRICE (MERAH BESAR) */
 .special-section{border-top:2px solid #000;padding-top:4px;margin-top:6px}
 .special-header{display:flex;justify-content:space-between;align-items:center}
 .lbl-special{font-size:18px;font-weight:900}
@@ -75,41 +70,39 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
 .val-special{font-size:46px;font-weight:900;color:#e60000;letter-spacing:-1.5px;margin-top:-2px;display:flex;align-items:baseline}
 .val-special .rp{font-size:24px;color:#000;font-weight:900;margin-right:2px}
 
-/* FOOTER UFO CARE */
 .tag-footer{border-top:2px solid #000;padding-top:4px;margin-top:4px;display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:900;line-height:1.2}
 
-/* CSS KHUSUS AUTOMATIC 4 GRID A4 SAAT DICETAK */
+/* PENGATURAN CETAK PAS UNTUK KERTAS POTONGAN 1/4 A4 (A6 / 105mm x 148.5mm) */
 @media print{
   @page{
-    size: A4 portrait;
+    size: 105mm 148.5mm; /* Pas Ukuran 1/4 A4 */
     margin: 0mm;
   }
   html, body{
-    width: 210mm;
-    height: 297mm;
+    width: 105mm;
+    height: 148.5mm;
     background: #ffffff !important;
     margin: 0 !important;
     padding: 0 !important;
   }
   .wrap, .panel, h1, .sub, .grid-form, .buttons, .preview-area{display:none !important}
   
-  #printArea{
-    display: grid !important;
-    grid-template-columns: 105mm 105mm;
-    grid-template-rows: 148.5mm 148.5mm;
-    width: 210mm;
-    height: 297mm;
-    background: #ffffff !important;
+  #printSingle{
+    display: block !important;
+    width: 105mm;
+    height: 148.5mm;
+    margin: 0 !important;
   }
 }
+@media(max-width:750px){.grid-form{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <div class="wrap">
   <div class="panel">
-    <h1>Generator Label Produk UFO (1/4 A4)</h1>
-    <p class="sub">Isi detail produk di bawah ini. Saat Anda menekan tombol cetak, sistem akan otomatis memperbanyak menjadi 4 label pas dalam 1 lembar kertas A4.</p>
+    <h1>Generator Price Tag Satuan (1/4 A4)</h1>
+    <p class="sub">Isi data 1 produk di bawah ini. Hasil cetak akan otomatis pas di 1 lembar kertas pecahan 1/4 A4.</p>
 
     <div class="grid-form">
       <div>
@@ -152,20 +145,19 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
     </div>
 
     <div class="buttons">
-      <button class="primary" onclick="print4Grid()">🖨️ Cetak ke Kertas A4 (4 Label)</button>
+      <button class="primary" onclick="printSingle()">🖨️ Cetak Satuan (Kertas 1/4 A4)</button>
     </div>
   </div>
 
   <div class="panel">
+    <label style="margin-bottom:12px;display:block;font-weight:700;">📄 Preview Tampilan Cetak:</label>
     <div class="preview-area">
-      <!-- TEMPLATE MODEL PREVIEW MONITOR -->
+      <!-- CONTAINER CARD -->
       <div id="singleCard" class="tag-card">
         <div>
           <div class="tag-header">
             <div class="brand-info">
-              <div class="brand-row">
-                <span class="brand-name outBrand">LG</span>
-              </div>
+              <div class="brand-name outBrand">LG</div>
               <div class="model-code outTipe">GNB202SQIR</div>
               <div class="product-name outNama">LEMARI ES 2 PINTU</div>
             </div>
@@ -206,8 +198,7 @@ button{border:0;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:
   </div>
 </div>
 
-<!-- CONTAINER TERSEMBUNYI KHUSUS CETAK 4 GRID -->
-<div id="printArea" style="display:none;"></div>
+<div id="printSingle" style="display:none;"></div>
 
 <script>
 function formatRupiah(num) {
@@ -233,7 +224,6 @@ function updateTag() {
   card.querySelector('.outNama').innerText = nama;
   card.querySelector('.outRetail').innerText = 'Rp ' + formatRupiah(retail);
   
-  // Hitung Otomatis Nominal Cicilan per Bulan
   const numRetail = Number(retail.replace(/\D/g, ''));
   const nominalCicilan = Math.round(numRetail / tenor);
   card.querySelector('.outCicilanNominal').innerText = formatRupiah(nominalCicilan);
@@ -242,7 +232,6 @@ function updateTag() {
   card.querySelector('.outSpecial').innerText = formatRupiah(special);
   card.querySelector('.outCare').innerText = care;
 
-  // Render List Spesifikasi dengan Bullet "➢"
   const specArr = specText.split(',');
   const specUl = card.querySelector('.outSpec');
   specUl.innerHTML = '';
@@ -254,24 +243,15 @@ function updateTag() {
     }
   });
 
-  // Render QR Code Realtime
   const encodedText = encodeURIComponent(qrLink || "https://ufoelectronics.id");
   card.querySelector('.qrImage').src = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodedText;
 }
 
-// FUNGSI GANDA CARDS MENJADI 4 GRID PAS A4
-function print4Grid() {
+function printSingle() {
   updateTag();
-  const printArea = document.getElementById('printArea');
-  printArea.innerHTML = '';
-
-  const singleCardHtml = document.getElementById('singleCard').outerHTML;
+  const printSingleDiv = document.getElementById('printSingle');
+  printSingleDiv.innerHTML = document.getElementById('singleCard').outerHTML;
   
-  // Gandakan kartu menjadi 4 kotak pas untuk 1 kertas A4
-  for(let i = 0; i < 4; i++) {
-    printArea.innerHTML += singleCardHtml;
-  }
-
   setTimeout(() => {
     window.print();
   }, 200);
