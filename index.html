@@ -47,15 +47,15 @@ canvas{display:block;width:100%;height:auto}
 <body>
 <div class="wrap">
   <div class="panel">
-    <h1>Generator Price Tag UFO (Font Inter & Efek Modern)</h1>
+    <h1>Generator Price Tag UFO</h1>
     <p class="sub">Pilih jenis template, lalu isi data brand, tipe, dan harganya.</p>
 
-    <!-- PILIHAN TEMPLATE (CLEARANCE SALE KEMBALI DITAMBAHKAN) -->
+    <!-- PILIHAN TEMPLATE -->
     <div style="margin-bottom:16px;">
       <label style="color:#0b4db8;font-size:16px;">🎯 Pilih Jenis Template / Promo:</label>
       <select id="templateSelect">
-        <option value="clearance">Clearance Sale</option>
-        <option value="standar">Template Standar / Promo Reguler</option>
+        <option value="standar" selected>Template Standar / Price Tag UFO</option>
+        <option value="clearance">Template Clearance Sale</option>
         <option value="cashback">Template Promo Cashback</option>
       </select>
     </div>
@@ -186,16 +186,16 @@ document.fonts.ready.then(() => {
   drawCanvas();
 });
 
-// DATA PRESET UNTUK 3 TEMPLATE LENGKAP
+// NAMA FILE GAMBAR DUA SERTA KOORDINAT PRESET
 const templatesData = {
-  clearance: {
-    src: 'template-clearance.jpg',
+  standar: {
+    src: 'template-ufo.jpg', // File template UFO bawaan Anda
     brandSize: 28, brandX: 55, brandY: 170,
     tipeSize: 20, tipeX: 55, tipeY: 210,
     hargaSize: 48, hargaX: 140, hargaY: 420
   },
-  standar: {
-    src: 'template-ufo.jpg',
+  clearance: {
+    src: 'template-clearance.jpg',
     brandSize: 28, brandX: 55, brandY: 170,
     tipeSize: 20, tipeX: 55, tipeY: 210,
     hargaSize: 48, hargaX: 140, hargaY: 420
@@ -416,7 +416,8 @@ function drawCanvas() {
   }
 }
 
-switchTemplate('clearance');
+// OTOMATIS LOAD TEMPLATE UFO SAAT PERTAMA DIBUKA
+switchTemplate('standar');
 </script>
 </body>
 </html>
