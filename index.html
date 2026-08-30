@@ -3,28 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Generator Price Tag UFO Electronics</title>
+<title>Generator Price Tag UFO Electronics - Modern Style</title>
+
+<!-- IMPORT FONT INTER DARI GOOGLE FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#eef3fb;color:#102a5c}
+body{margin:0;font-family:'Inter',sans-serif;background:#eef3fb;color:#102a5c}
 .wrap{max-width:1100px;margin:auto;padding:22px}
-h1{margin:0 0 6px;font-size:28px}
+h1{margin:0 0 6px;font-size:28px;font-weight:800}
 .sub{margin:0 0 18px;color:#5b6b86}
 .panel{background:white;border-radius:18px;padding:18px;box-shadow:0 8px 30px #0001;margin-bottom:20px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}
 label{font-weight:700;font-size:14px;display:block;margin-bottom:7px}
-input, select{width:100%;padding:11px 14px;border:1px solid #ccd6e8;border-radius:10px;font-size:16px;outline:none;background:#fff;color:#102a5c;font-family:Arial,sans-serif}
+input, select{width:100%;padding:11px 14px;border:1px solid #ccd6e8;border-radius:10px;font-size:16px;outline:none;background:#fff;color:#102a5c;font-family:'Inter',sans-serif}
 input:focus, select:focus{border-color:#1558c0;box-shadow:0 0 0 3px #1558c015}
 
 .pos-box{background:#f4f7fc;padding:16px;border-radius:14px;margin-top:10px;border:1px solid #d8e2f3}
 .pos-section{margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed #c9d6ec}
 .pos-section:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
-.pos-title{font-weight:700;font-size:14px;color:#0b4db8;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.pos-title{font-weight:800;font-size:14px;color:#0b4db8;margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .pos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 
 .buttons{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
-button{border:0;border-radius:10px;padding:13px 18px;font-size:16px;font-weight:700;cursor:pointer}
-.primary{background:#0b4db8;color:#fff}
+button{border:0;border-radius:10px;padding:13px 18px;font-size:16px;font-weight:800;font-family:'Inter',sans-serif;cursor:pointer}
+.primary{background:#0b4db8;color:#fff;box-shadow:0 4px 12px rgba(11,77,184,0.3)}
 .secondary{background:#e8eef8;color:#123c78}
 .preview{display:flex;justify-content:center}
 .canvas-wrap{width:min(100%,500px);background:#ddd;border-radius:14px;overflow:hidden;box-shadow:0 10px 35px #0002}
@@ -41,8 +47,8 @@ canvas{display:block;width:100%;height:auto}
 <body>
 <div class="wrap">
   <div class="panel">
-    <h1>Generator Price Tag UFO</h1>
-    <p class="sub">Isi data barang & harga. Atur ukuran font serta posisi (X, Y) per baris teks jika diperlukan.</p>
+    <h1>Generator Price Tag UFO (Font Inter & Efek Modern)</h1>
+    <p class="sub">Tampilan teks kini menggunakan Font Inter dengan efek bayangan khas ritel modern.</p>
 
     <!-- PILIHAN TEMPLATE -->
     <div style="margin-bottom:16px;">
@@ -79,7 +85,7 @@ canvas{display:block;width:100%;height:auto}
 
       <!-- 1. BRAND -->
       <div class="pos-section">
-        <div class="pos-title">🏷️ Pengaturan Teks Nama Brand</div>
+        <div class="pos-title">🏷️ Teks Nama Brand</div>
         <div class="pos-grid">
           <div>
             <label style="font-size:12px;">Ukuran Font</label>
@@ -98,7 +104,7 @@ canvas{display:block;width:100%;height:auto}
 
       <!-- 2. TIPE / MODEL -->
       <div class="pos-section">
-        <div class="pos-title">📱 Pengaturan Teks Tipe / Model</div>
+        <div class="pos-title">📱 Teks Tipe / Model</div>
         <div class="pos-grid">
           <div>
             <label style="font-size:12px;">Ukuran Font</label>
@@ -117,7 +123,7 @@ canvas{display:block;width:100%;height:auto}
 
       <!-- 3. HARGA -->
       <div class="pos-section">
-        <div class="pos-title">💰 Pengaturan Teks Harga</div>
+        <div class="pos-title">💰 Teks Harga (Efek 3D / Shadow)</div>
         <div class="pos-grid">
           <div>
             <label style="font-size:12px;">Ukuran Font</label>
@@ -136,7 +142,7 @@ canvas{display:block;width:100%;height:auto}
 
       <!-- 4. CASHBACK (Kalo Aktif) -->
       <div id="cashbackPosSection" class="pos-section hidden">
-        <div class="pos-title" style="color:#d0021b;">🎁 Pengaturan Teks Cashback</div>
+        <div class="pos-title" style="color:#d0021b;">🎁 Teks Cashback</div>
         <div class="pos-grid">
           <div>
             <label style="font-size:12px;">Ukuran Font</label>
@@ -175,7 +181,11 @@ const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 const templateImg = new Image();
 
-// PRESET POSISI PERSISI SESUAI DESAIN TEMPLATE UFO
+// MEMASTIKAN FONT INTER TERMUAT DENGAN SEMPURNA SEBELUM RENDER
+document.fonts.ready.then(() => {
+  drawCanvas();
+});
+
 const templatesData = {
   standar: {
     src: 'template-ufo.jpg',
@@ -316,7 +326,7 @@ function drawCanvas() {
     ctx.drawImage(templateImg, 0, 0);
   }
 
-  // 1. RENDER BRAND
+  // 1. RENDER BRAND (Inter 900 Extra Bold)
   const brandText = brandInput.value.trim().toUpperCase();
   if (brandText) {
     const bSize = Number(brandSizeInput.value);
@@ -324,14 +334,14 @@ function drawCanvas() {
     const bY = Number(brandYInput.value);
     const maxWidth = canvas.width - bX - 40;
 
-    ctx.font = '900 ' + bSize + 'px Arial, sans-serif';
-    ctx.fillStyle = '#0f2b5c';
+    ctx.font = '900 ' + bSize + "px 'Inter', sans-serif";
+    ctx.fillStyle = '#0a235c';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
-    wrapText(ctx, brandText, bX, bY, maxWidth, bSize * 1.2);
+    wrapText(ctx, brandText, bX, bY, maxWidth, bSize * 1.15);
   }
 
-  // 2. RENDER TIPE / MODEL
+  // 2. RENDER TIPE / MODEL (Inter 600 Semi-Bold)
   const tipeText = tipeInput.value.trim().toUpperCase();
   if (tipeText) {
     const tSize = Number(tipeSizeInput.value);
@@ -339,35 +349,42 @@ function drawCanvas() {
     const tY = Number(tipeYInput.value);
     const maxWidth = canvas.width - tX - 40;
 
-    ctx.font = 'bold ' + tSize + 'px Arial, sans-serif';
-    ctx.fillStyle = '#1e386b';
+    ctx.font = "600 " + tSize + "px 'Inter', sans-serif";
+    ctx.fillStyle = '#3a4b68';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
     wrapText(ctx, tipeText, tX, tY, maxWidth, tSize * 1.25);
   }
 
-  // 3. RENDER HARGA PROMO
+  // 3. RENDER HARGA PROMO (Efek Bayangan 3D Ritel Modern)
   const hargaVal = formatRupiah(hargaInput.value);
   if (hargaVal) {
     const hSize = Number(hargaSizeInput.value);
     const hX = Number(hargaXInput.value);
     const hY = Number(hargaYInput.value);
 
-    ctx.font = '900 ' + hSize + 'px Arial, sans-serif';
-    ctx.fillStyle = '#0d4097';
+    ctx.font = "900 " + hSize + "px 'Inter', sans-serif";
+
+    // Layer 1: Bayangan Lembut (Drop Shadow)
+    ctx.shadowColor = 'rgba(10, 35, 92, 0.25)';
+    ctx.shadowBlur = 6;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 3;
+
+    // Layer 2: Gradien Warna Biru Metalik / Emas Ritel
+    let gradient = ctx.createLinearGradient(0, hY - (hSize/2), 0, hY + (hSize/2));
+    gradient.addColorStop(0, '#0b4db8');
+    gradient.addColorStop(1, '#052d75');
+
+    ctx.fillStyle = gradient;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
 
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
-    ctx.shadowBlur = 3;
-    ctx.shadowOffsetX = 1;
-    ctx.shadowOffsetY = 2;
-
     ctx.fillText(hargaVal, hX, hY);
-    ctx.shadowColor = 'transparent';
+    ctx.shadowColor = 'transparent'; // Reset Shadow
   }
 
-  // 4. RENDER CASHBACK
+  // 4. RENDER CASHBACK (Efek Merah Menyala)
   if (templateSelect.value === 'cashback') {
     const cbVal = formatRupiah(cashbackInput.value);
     if (cbVal) {
@@ -375,12 +392,19 @@ function drawCanvas() {
       const cbX = Number(cbXInput.value);
       const cbY = Number(cbYInput.value);
 
-      ctx.font = '900 ' + cbSize + 'px Arial, sans-serif';
+      ctx.font = "900 " + cbSize + "px 'Inter', sans-serif";
+      
+      ctx.shadowColor = 'rgba(208, 2, 27, 0.3)';
+      ctx.shadowBlur = 4;
+      ctx.shadowOffsetX = 1;
+      ctx.shadowOffsetY = 2;
+
       ctx.fillStyle = '#d0021b';
       ctx.textAlign = 'left';
       ctx.textBaseline = 'middle';
 
       ctx.fillText(cbVal, cbX, cbY);
+      ctx.shadowColor = 'transparent';
     }
   }
 }
